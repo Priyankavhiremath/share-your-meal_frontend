@@ -3,8 +3,10 @@ import io from "socket.io-client";
 import './styles/App.css';
 import GuestForm from "./components/GuestForm"
 import UserCard from "./components/UserCard"
+import WelcomePage from "./components/WelcomePage"
 import Peer from "simple-peer"
-
+import { Route, Switch, Link } from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -139,31 +141,35 @@ function App() {
   }
 
   return (
-    <div className="App">
-    {incomingCall && !acceptedCall && (<div>
-      <p>{incomingCall.caller.name} is trying to call you!</p>
-      <button onClick={() => acceptCall()}>Yes please!</button>
-    </div>)}
-    {connected && (
-      <video  style={{ width: "15%", height: "15%" }}
-              playsInline
-              muted
-              ref={userVideo}
-              autoPlay
-              name="userVideo">
-      </video>
-    )}
-    {acceptedCall && (
-      <video  style={{ width: "75%", height: "75%" }}
-              playsInline
-              ref={partnerVideo}
-              autoPlay
-              name="partnerVideo">
-      </video>
-    )}
-    {!connected? <GuestForm onConnect={handleConnect} onChangeForm={handleChangeForm}/> : 
-    <UserCard connectedUsers={connectedUsers} me={me} handleInviteBuddy={handleInviteBuddy} />}
-    </div>
+    <Switch>
+    <Route exact path="/guest" component={GuestForm} />
+    <Route exact path="/" component={WelcomePage} />
+      <div className="App">
+      {incomingCall && !acceptedCall && (<div>
+        <p>{incomingCall.caller.name} is trying to call you!</p>
+        <button onClick={() => acceptCall()}>Yes please!</button>
+      </div>)}
+      {connected && (
+        <video  style={{ width: "15%", height: "15%" }}
+                playsInline
+                muted
+                ref={userVideo}
+                autoPlay
+                name="userVideo">
+        </video>
+      )}
+      {acceptedCall && (
+        <video  style={{ width: "75%", height: "75%" }}
+                playsInline
+                ref={partnerVideo}
+                autoPlay
+                name="partnerVideo">
+        </video>
+      )}
+      {!connected? <GuestForm onConnect={handleConnect} onChangeForm={handleChangeForm}/> : 
+      <UserCard connectedUsers={connectedUsers} me={me} handleInviteBuddy={handleInviteBuddy} />}
+      </div>
+    </Switch>
   );
 }
 
