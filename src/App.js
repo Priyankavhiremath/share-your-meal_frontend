@@ -1,14 +1,12 @@
 import React, {useEffect, useState, useRef} from 'react'
-import io from "socket.io-client";
 import './styles/App.css';
 import GuestForm from "./components/GuestForm"
 import UserCard from "./components/UserCard"
 import WelcomePage from "./components/WelcomePage"
-import Peer from "simple-peer"
-import { Route, Switch, Link } from "react-router-dom"
+import  Routing from "./components/Routing"
+import { connectSocket, displayMe, displayUsers, recevingCall, acceptInvite } from './socket/socket'
+import { createPeer, callUser, broadcastVideo, logPeerError, acceptIncomingCall } from './peer/peer'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
 
 function App() {
   const [me, setMe] = useState({})
@@ -25,26 +23,13 @@ function App() {
   
 
   useEffect(() => {
-    socket.current = io.connect('http://localhost:8000/')
+    connectSocket(socket);
     //----------------------------------------------
-    socket.current.on('myId', (id) => {
-      setMe(prevState => {
-        return { ...prevState, id: id }
-      })
-    })
+    displayMe(socket, setMe);
     //------------------------------------------------
-    socket.current.on('connectedUsers', (users) =>{
-      setConnectedUsers(users)
-    });
+    displayUsers(socket, setConnectedUsers);
     //------------------------------------------------
-    socket.current.on('incomingCall', ({from, signal}) => {
-      console.log({from})
-      setIncomingCall({
-        caller: from,
-        signal
-      })  
-    })
-
+    recevingCall(socket, setIncomingCall);
   }, [])
 
   const handleChangeForm = (e) => {
@@ -78,86 +63,34 @@ function App() {
   }
 
   const handleInviteBuddy = (id) => {
-    // Send Offer To Start Connection
-  // socket.on('offer', (socketId, description) => {
-  //   socket.to(socketId).emit('offer', socket.id, description);
-  // });
-    const peer = new Peer({
-      initiator: true,
-      trickle: false,
-      stream
-    })
-
-    myPeer.current = peer;
-
-    peer.on('signal', signal => {
-      socket.current.emit('callUser',  {
-        userToCall: id,
-        from: me,
-        signal
-      })
-    })
-
-    peer.on('stream', stream => {
-      if (partnerVideo.current) {
-        partnerVideo.current.srcObject = stream
-      }
-    })
-
-    peer.on('error', (err) => {
-      console.log(err)
-    })
-
-    socket.current.on('acceptedCall', signal => {
-      peer.signal(signal)
-    })
-
-    console.log('accepting all')
+  // Send Offer To Start Connection
+    const peer = createPeer(myPeer, { stream, initiator: true, trickle: false });
+    callUser({ peer, socket, id, me });
+    broadcastVideo(peer, partnerVideo);
+    logPeerError(peer);
+    acceptInvite(socket, peer);
+    console.log('accepting call')
   }
 
   const acceptCall = () => {
     setAcceptedCall(true);
-
-    const peer = new Peer({
-      initiator: false,
-      trickle: false,
-      stream
-    })
-
-    peer.on('signal', signal => {
-      socket.current.emit('acceptCall',  {
-        userWhoCalled: incomingCall.caller.id,
-        signal
-      })
-    })
-
-    peer.on('stream', stream => {
-      if (partnerVideo.current) {
-        partnerVideo.current.srcObject = stream
-      }
-    })
-
+    const peer = createPeer(null, { stream, initiator: false, trickle: false });
+    acceptIncomingCall(peer, socket, incomingCall);
+    broadcastVideo(peer, partnerVideo);
     peer.signal(incomingCall.signal)
   }
 
+  console.log(connected);
+
   return (
-    <Switch>
-    <Route exact path="/guest" component={GuestForm} />
-    <Route exact path="/" component={WelcomePage} />
+    
       <div className="App">
+        <Routing connected={connected} onConnect={handleConnect} onChangeForm={handleChangeForm} userVideo={userVideo} />
       {incomingCall && !acceptedCall && (<div>
         <p>{incomingCall.caller.name} is trying to call you!</p>
         <button onClick={() => acceptCall()}>Yes please!</button>
       </div>)}
-      {connected && (
-        <video  style={{ width: "15%", height: "15%" }}
-                playsInline
-                muted
-                ref={userVideo}
-                autoPlay
-                name="userVideo">
-        </video>
-      )}
+      
       {acceptedCall && (
         <video  style={{ width: "75%", height: "75%" }}
                 playsInline
@@ -166,10 +99,9 @@ function App() {
                 name="partnerVideo">
         </video>
       )}
-      {!connected? <GuestForm onConnect={handleConnect} onChangeForm={handleChangeForm}/> : 
-      <UserCard connectedUsers={connectedUsers} me={me} handleInviteBuddy={handleInviteBuddy} />}
+
+      {connected && <UserCard connectedUsers={connectedUsers} me={me} handleInviteBuddy={handleInviteBuddy} />}
       </div>
-    </Switch>
   );
 }
 

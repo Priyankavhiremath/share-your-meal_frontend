@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { Container } from 'react-bootstrap';
 
 const WelcomePage = () => {
@@ -13,7 +14,9 @@ const WelcomePage = () => {
                 <input placeholder="username"></input>
                 <input placeholder="password"></input>
                 <button>login</button>
-                <button>guest user</button>
+                <Link to="/guest">
+                    <button>guest user</button>
+                </Link>
             </Container>
         </div>
     )
