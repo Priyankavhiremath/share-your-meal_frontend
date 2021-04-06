@@ -1,33 +1,22 @@
-import React, { useEffect, useState, useRef } from "react";
-import "./styles/App.css";
-import GuestForm from "./components/GuestForm";
-import UserCard from "./components/UserCard";
-import WelcomePage from "./components/WelcomePage";
-import Routing from "./components/Routing";
-import {
-  connectSocket,
-  displayMe,
-  displayUsers,
-  recevingCall,
-  acceptInvite,
-} from "./socket/socket";
-import {
-  createPeer,
-  callUser,
-  broadcastVideo,
-  logPeerError,
-  acceptIncomingCall,
-} from "./peer/peer";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Footer from "./components/Footer";
+
+import React, {useEffect, useState, useRef} from 'react'
+import './styles/App.css';
+import UserCard from "./components/UserCard"
+import Routing from "./components/Routing"
+import SelectionPage from "./components/SelectionPage"
+import { connectSocket, displayMe, displayUsers, recevingCall, acceptInvite } from './socket/socket'
+import { createPeer, callUser, broadcastVideo, logPeerError, acceptIncomingCall } from './peer/peer'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useHistory } from "react-router-dom"
 
 function App() {
-  const [me, setMe] = useState({});
-  const [connected, setConnected] = useState(false);
-  const [connectedUsers, setConnectedUsers] = useState([]);
-  const [incomingCall, setIncomingCall] = useState();
-  const [acceptedCall, setAcceptedCall] = useState(false);
-  const [stream, setStream] = useState();
+  const history = useHistory()
+  const [me, setMe] = useState({})
+  const [connected, setConnected] = useState(false)
+  const [connectedUsers, setConnectedUsers] = useState([])
+  const [incomingCall, setIncomingCall] = useState()
+  const [acceptedCall, setAcceptedCall] = useState(false)
+  const [stream, setStream] = useState()
 
   const socket = useRef();
   const userVideo = useRef();

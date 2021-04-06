@@ -11,6 +11,7 @@ const UserCard = ({connectedUsers, me, handleInviteBuddy}) => {
             {user.country} - 
             {user.language}
             <br />
+            
             <button onClick={() => handleInviteBuddy(user.id)} >Pick me</button>
             <br />
             <br />
