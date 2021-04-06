@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Route, Switch } from "react-router-dom"
 import GuestForm from "./GuestForm"
@@ -16,4 +17,4 @@ const Routing = (props) => {
     )
 }
 
-export default Routing
+export default Routing;
