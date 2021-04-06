@@ -1,0 +1,16 @@
+.welcome-image {
+  max-width: 35%;
+  min-width: 300px;
+  float: left;
+}
+.background {
+  background-color: #7cd795;
+}
+
+.logo {
+  color: #ad70fa;
+  font-family: "Sacramento", cursive;
+}
+/* .bottom-box {
+  background-color: whitesmoke;
+} */

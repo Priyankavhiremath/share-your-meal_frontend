@@ -1,5 +1,10 @@
 @import "WelcomePage.css";
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -37,4 +42,43 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.footer {
+  /* background: rgba(0, 0, 0, 0.356); */
+
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4rem;
+  background-color: #7cd795;
+}
+
+.login-button {
+  background-image: linear-gradient(#ad70fa, #ad70fa);
+  color: white;
+}
+.Register-button {
+  background-image: linear-gradient(#ad70fa, #ad70fa);
+  color: white;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Dosis", sans-serif;
+}
+.welcome-image {
+  max-width: 35%;
+  min-width: 300px;
+  float: left;
+}
+
+.background {
+  background-color: #7cd795;
 }
