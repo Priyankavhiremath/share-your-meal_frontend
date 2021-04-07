@@ -1,13 +1,12 @@
 
 import React, {useEffect, useState, useRef} from 'react'
 import './styles/App.css';
-import UserCard from "./components/UserCard"
 import Routing from "./components/Routing"
-import SelectionPage from "./components/SelectionPage"
+import Footer from "./components/Footer"
 import { connectSocket, displayMe, displayUsers, recevingCall, acceptInvite } from './socket/socket'
 import { createPeer, callUser, broadcastVideo, logPeerError, acceptIncomingCall } from './peer/peer'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useHistory } from "react-router-dom"
+import { useHistory, } from "react-router-dom"
 
 function App() {
   const history = useHistory()
@@ -60,6 +59,7 @@ function App() {
     event.preventDefault();
     socket.current.emit("newGuestUser", me);
     setConnected(true);
+    history.push('/select')
   };
 
   const handleInviteBuddy = (id) => {
@@ -93,31 +93,15 @@ function App() {
         onConnect={handleConnect}
         onChangeForm={handleChangeForm}
         userVideo={userVideo}
+        me={me}
+        connectedUsers={connectedUsers}
+        handleInviteBuddy={handleInviteBuddy}
+        acceptedCall={acceptedCall}
+        incomingCall={incomingCall}
+        acceptCall={acceptCall}
+        partnerVideo={partnerVideo}
       />
-
       <Footer />
-      {incomingCall && !acceptedCall && (
-        <div>
-          <p>{incomingCall.caller.name} is trying to call you!</p>
-          <button onClick={() => acceptCall()}>Yes please!</button>
-        </div>
-      )}
-      {acceptedCall && (
-        <video
-          style={{ width: "75%", height: "75%" }}
-          playsInline
-          ref={partnerVideo}
-          autoPlay
-          name="partnerVideo"
-        ></video>
-      )}
-      {connected && (
-        <UserCard
-          connectedUsers={connectedUsers}
-          me={me}
-          handleInviteBuddy={handleInviteBuddy}
-        />
-      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react'
+import BuddySelector from "../components/BuddySelector"
 
-const SelectionPage = ({ me, connected, userVideo }) => {
+const SelectionPage = ({ me, connected, userVideo, connectedUsers, handleInviteBuddy, acceptedCall, incomingCall, acceptCall, partnerVideo   }) => {
     
     return (
         <div>
@@ -8,6 +9,7 @@ const SelectionPage = ({ me, connected, userVideo }) => {
             <p>You are now online and available for calls. You can call a mealbuddy from the list below.</p>
 
             {connected && (
+                <>
                 <video  style={{ width: "15%", height: "15%" }}
                         playsInline
                         muted
@@ -15,7 +17,30 @@ const SelectionPage = ({ me, connected, userVideo }) => {
                         autoPlay
                         name="userVideo">
                 </video>
+                {!acceptedCall && <BuddySelector
+                    connectedUsers={connectedUsers}
+                    me={me}
+                    handleInviteBuddy={handleInviteBuddy}
+                    />}
+        </>
         )}
+
+        {incomingCall && !acceptedCall && (
+        <div>
+          <p>{incomingCall.caller.name} is trying to call you!</p>
+          <button onClick={() => acceptCall()}>Yes please!</button>
+        </div>
+      )}
+      {acceptedCall && (
+        <video
+          style={{ width: "75%", height: "75%" }}
+          playsInline
+          ref={partnerVideo}
+          autoPlay
+          name="partnerVideo"
+        ></video>
+      )}
+
         </div>
     )
 }

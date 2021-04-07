@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserCard = ({connectedUsers, me, handleInviteBuddy}) => {
+const BuddySelector = ({connectedUsers, me, handleInviteBuddy}) => {
 
     return (
         <div>
@@ -22,4 +22,4 @@ const UserCard = ({connectedUsers, me, handleInviteBuddy}) => {
     )
 }
 
-export default UserCard
+export default BuddySelector

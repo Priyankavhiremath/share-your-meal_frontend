@@ -28,6 +28,20 @@ const WelcomePage = () => {
             </Link>
           </div>
         </div>
+        <div className="col-md-6 m-auto">
+          <div className="card card-body text-center bg-light border border-0 shadow m-5">
+            {/* <div className='logo'>
+              Lola 
+            </div> */}
+            <p>Jump in as a guest</p>
+            <Link
+              to="/guest"
+              className="btn Register-button btn-block mb-2"
+            >
+              Join as a guest
+            </Link>
+          </div>
+        </div>
       </div>
       {/* Welcome Text */}
       <div className="justify-content-center">

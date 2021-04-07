@@ -12,3 +12,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+// do we need both strit mode and browser router?
