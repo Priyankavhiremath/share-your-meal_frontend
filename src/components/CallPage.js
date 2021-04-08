@@ -3,11 +3,9 @@ import React from 'react'
 const CallPage = ({ acceptedCall, partnerVideo, connected, userVideo }) => {
     return (
         <div>
-            <h1>Hello from the call page</h1>
-            
             {connected && (
                 <video
-                    style={{ width: "15rem", height: "15rem", borderRadius: "50%", "object-fit": "cover", border: "0.2rem solid white"}}
+                    style={{ width: "15rem", height: "15rem", borderRadius: "50%", "object-fit": "cover", border: "0.2rem solid white", position: "absolute"}}
                     playsInline
                     muted
                     ref={userVideo} //is not displayed
@@ -17,7 +15,7 @@ const CallPage = ({ acceptedCall, partnerVideo, connected, userVideo }) => {
             )}
             {acceptedCall && (
                 <video
-                style={{ width: "80%", height: "80%" }}
+                style={{ width: "100%", height: "100%", "z-index": "-1"}}
                 playsInline
                 ref={partnerVideo}
                 autoPlay

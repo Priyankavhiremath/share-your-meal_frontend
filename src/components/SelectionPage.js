@@ -26,7 +26,15 @@ const SelectionPage = ({
       {connected && (
         <>
           <video
-            style={{ width: "15rem", height: "15rem", borderRadius: "50%", "object-fit": "cover", border: "0.2rem solid white"}}
+            style={{
+              width: "15rem", 
+              height: "15rem", 
+              borderRadius: "50%",
+              "object-fit": "cover",
+              border: "0.2rem solid white",
+              transform: "rotateY(180deg)",
+              "-webkit-transform": "rotateY(180deg)"
+            }}
             playsInline
             muted
             ref={userVideo}
