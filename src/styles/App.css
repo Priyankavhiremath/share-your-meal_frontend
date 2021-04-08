@@ -1,4 +1,5 @@
 @import "WelcomePage.css";
+@import "GuestForm.css";
 
 * {
   margin: 0;
@@ -57,14 +58,6 @@
   background-color: #7cd795;
 }
 
-.login-button {
-  background-image: linear-gradient(#ad70fa, #ad70fa);
-  color: white;
-}
-.Register-button {
-  background-image: linear-gradient(#ad70fa, #ad70fa);
-  color: white;
-}
 h1,
 h2,
 h3,
@@ -80,5 +73,13 @@ h6 {
 }
 
 .background {
-  background-color: #7cd795;
+  background-color: #b2d6bc;
+}
+
+.purple-button {
+  background-image: linear-gradient(#583d7a, #783fbd);
+  color: white;
+}
+.textColor {
+  color: white;
 }
