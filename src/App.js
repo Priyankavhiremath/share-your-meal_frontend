@@ -73,7 +73,7 @@ function App() {
     callUser({ peer, socket, id, me });
     broadcastVideo(peer, partnerVideo);
     logPeerError(peer);
-    acceptInvite(socket, peer);
+    acceptInvite(socket, peer, setAcceptedCall);
     console.log("accepting call");
   };
 
@@ -90,16 +90,16 @@ function App() {
   return (
     <div className="App background">
       <Routing
+        me={me}
         connected={connected}
         onConnect={handleConnect}
         onChangeForm={handleChangeForm}
-        userVideo={userVideo}
-        me={me}
-        connectedUsers={connectedUsers}
         handleInviteBuddy={handleInviteBuddy}
+        acceptCall={acceptCall}
+        connectedUsers={connectedUsers}
         acceptedCall={acceptedCall}
         incomingCall={incomingCall}
-        acceptCall={acceptCall}
+        userVideo={userVideo}
         partnerVideo={partnerVideo}
       />
       <Footer />

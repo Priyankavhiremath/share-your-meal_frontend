@@ -28,8 +28,9 @@ export const recevingCall = (socket, setIncomingCall) => {
       });
 };
 
-export const acceptInvite = (socket, peer) => {
+export const acceptInvite = (socket, peer, setAcceptedCall) => {
     socket.current.on('acceptedCall', signal => {
         peer.signal(signal)
+        setAcceptedCall(true)
       })
 }
