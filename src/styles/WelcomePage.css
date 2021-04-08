@@ -8,8 +8,15 @@
 }
 
 .logo {
-  color: #583d7a;
+  /*color: #583d7a;*/
+  color: teal;
   font-family: "Mitr", sans-serif;
+}
+
+.mediumtext {
+  color: rgb(247, 231, 203);
+  font-family: Roboto;
+  font-size: 1.5rem;
 }
 /* .bottom-box {
   background-color: whitesmoke;

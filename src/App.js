@@ -88,6 +88,7 @@ function App() {
   console.log(connected);
 
   return (
+    <>
     <div className="App background">
       <Routing
         me={me}
@@ -104,6 +105,7 @@ function App() {
       />
       <Footer />
     </div>
+    </>
   );
 }
 

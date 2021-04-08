@@ -1,5 +1,4 @@
 @import "WelcomePage.css";
-@import "GuestForm.css";
 
 * {
   margin: 0;
@@ -7,6 +6,7 @@
 }
 
 .App {
+  margin-top: 0;
   text-align: center;
 }
 
@@ -21,7 +21,7 @@
   }
 }
 
-.App-header {
+/*.App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -30,7 +30,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+}*/
 
 .App-link {
   color: #61dafb;
@@ -49,6 +49,7 @@
   /* background: rgba(0, 0, 0, 0.356); */
 
   font-size: 20px;
+  font-family: "Roboto";
   padding: 20px;
   text-align: center;
   position: absolute;
@@ -64,8 +65,19 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Dosis", sans-serif;
+  font-family: "Mitr", sans-serif;
+  color: teal;
 }
+
+h1 {
+  margin-top: 0;
+}
+
+p {
+  font-family: "Roboto";
+  color: #473163;
+}
+
 .welcome-image {
   max-width: 35%;
   min-width: 300px;
@@ -80,6 +92,14 @@ h6 {
   background-image: linear-gradient(#583d7a, #783fbd);
   color: white;
 }
-.textColor {
-  color: white;
+.purple-button.textColor {
+  color: rgb(247, 231, 203);
+}
+
+.purple-button.textColor:hover {
+  color: #b2d6bc;
+}
+
+.purple-button.fontFamily {
+  font-family: "Mitr", sans-serif;
 }

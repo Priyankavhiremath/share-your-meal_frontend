@@ -4,34 +4,34 @@ import { Link } from "react-router-dom";
 const WelcomePage = () => {
   return (
     <div className="background">
-      <div className="text-light text-center m-5">
-        <h1>
+      <div className="text-light text-center">
+        <h2>
           Welcome to <br/><span className="logo display-3">Share Your Meal</span>
-        </h1>
+        </h2>
         <div className="mediumtext">Connects people across the world!</div>
       </div>
       <div className="row mt-5">
         <div className="col-md-6 m-auto">
           <div className="card card-body text-center bg-light border border-0 shadow m-5">
             
-            <p>Create an account or login</p>
+            <h5>Create an account or login</h5>
             <Link
               to="/register"
-              className="btn purple-button btn-block mb-2"
+              className="btn purple-button btn-block textColor fontFamily mb-2"
             >
               Register
             </Link>
-            <Link to="/login" className="btn purple-button btn-block">
+            <Link to="/login" className="btn purple-button btn-block textColor fontFamily">
               Login
             </Link>
           </div>
         </div>
         <div className="col-md-6 m-auto">
           <div className="card card-body text-center bg-light border border-0 shadow m-5">
-            <p>Jump in as a guest</p>
+            <h5>Jump in as a guest</h5>
             <Link
               to="/guest"
-              className="btn purple-button btn-block mb-2 textColor"
+              className="btn purple-button btn-block mb-2 textColor fontFamily"
             >
               Join as a guest
             </Link>
