@@ -4,11 +4,11 @@ import  "../styles/RegisterForm.css"
 const RegisterPage = () => {
   return (
     <div>
-      <div className="text-light text-center m-5">
-        <div className="row mt-5">
+      <div className="text-light text-center">
+        <div className="row mt-0">
           <div className="col-md-6 m-auto">
             <div className="card card-body bg-light border border-0 shadow m-5">
-              <h1 className="text-center mb-3 textColor">Register</h1>
+              <h1 className="text-center mb-3">Register</h1>
 
               <form>
                 <div className="form-group"> 
