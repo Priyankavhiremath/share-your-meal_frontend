@@ -1,5 +1,6 @@
 import React from "react";
 import BuddySelector from "../components/BuddySelector";
+import { useHistory } from "react-router-dom";
 
 const SelectionPage = ({
   me,
@@ -10,8 +11,9 @@ const SelectionPage = ({
   acceptedCall,
   incomingCall,
   acceptCall,
-  partnerVideo,
 }) => {
+  const history = useHistory()
+  
   return (
     <div>
       <h4>Hello {me.name}</h4>
@@ -31,6 +33,7 @@ const SelectionPage = ({
             autoPlay
             name="userVideo"
           ></video>
+          
           {!acceptedCall && (
             <BuddySelector
               connectedUsers={connectedUsers}
@@ -38,25 +41,23 @@ const SelectionPage = ({
               handleInviteBuddy={handleInviteBuddy}
             />
           )}
-
         </>
       )}
 
       {incomingCall && !acceptedCall && (
         <div>
           <p>{incomingCall.caller.name} is trying to call you!</p>
-          <button onClick={() => acceptCall()}>Yes please!</button>
+          <button onClick={() => {
+            acceptCall()
+            history.push('/call')
+          }}>Yes please!</button>
         </div>
       )}
-      {acceptedCall && (
-        <video
-          style={{ width: "75%", height: "75%" }}
-          playsInline
-          ref={partnerVideo}
-          autoPlay
-          name="partnerVideo"
-        ></video>
-      )}
+
+      {acceptedCall && (() => {
+        acceptCall();
+        history.push('/call') // it doesn't push to /call route, why?
+      })}
     </div>
   );
 };
