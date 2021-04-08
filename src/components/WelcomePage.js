@@ -28,9 +28,6 @@ const WelcomePage = () => {
         </div>
         <div className="col-md-6 m-auto">
           <div className="card card-body text-center bg-light border border-0 shadow m-5">
-            {/* <div className='logo'>
-              Lola 
-            </div> */}
             <p>Jump in as a guest</p>
             <Link
               to="/guest"
