@@ -1,6 +1,7 @@
 
 import React, {useEffect, useState, useRef} from 'react'
 import './styles/App.css';
+import './styles/RegisterForm.css'
 import Routing from "./components/Routing"
 import Footer from "./components/Footer"
 import { connectSocket, displayMe, displayUsers, recevingCall, acceptInvite } from './socket/socket'

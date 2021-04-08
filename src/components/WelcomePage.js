@@ -6,37 +6,32 @@ const WelcomePage = () => {
     <div className="background">
       <div className="text-light text-center m-5">
         <h1>
-          Welcome to <span className="logo display-3">Share Your Meal</span>
+          Welcome to <br/><span className="logo display-3">Share Your Meal</span>
         </h1>
         <div className="mediumtext">Connects people across the world!</div>
       </div>
       <div className="row mt-5">
         <div className="col-md-6 m-auto">
           <div className="card card-body text-center bg-light border border-0 shadow m-5">
-            {/* <div className='logo'>
-              Lola 
-            </div> */}
+            
             <p>Create an account or login</p>
             <Link
-              to="/users/register"
-              className="btn Register-button btn-block mb-2"
+              to="/register"
+              className="btn purple-button btn-block mb-2"
             >
               Register
             </Link>
-            <Link to="/users/login" className="btn login-button btn-block">
+            <Link to="/login" className="btn purple-button btn-block">
               Login
             </Link>
           </div>
         </div>
         <div className="col-md-6 m-auto">
           <div className="card card-body text-center bg-light border border-0 shadow m-5">
-            {/* <div className='logo'>
-              Lola 
-            </div> */}
             <p>Jump in as a guest</p>
             <Link
               to="/guest"
-              className="btn Register-button btn-block mb-2"
+              className="btn purple-button btn-block mb-2 textColor"
             >
               Join as a guest
             </Link>

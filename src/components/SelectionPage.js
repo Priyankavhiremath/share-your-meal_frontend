@@ -20,10 +20,11 @@ const SelectionPage = ({
         from the list below.
       </p>
 
+
       {connected && (
         <>
           <video
-            style={{ width: "15%", height: "15%" }}
+            style={{ width: "15rem", height: "15rem", borderRadius: "50%", "object-fit": "cover", border: "0.2rem solid white"}}
             playsInline
             muted
             ref={userVideo}
@@ -37,6 +38,7 @@ const SelectionPage = ({
               handleInviteBuddy={handleInviteBuddy}
             />
           )}
+
         </>
       )}
 
