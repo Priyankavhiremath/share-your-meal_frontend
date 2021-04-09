@@ -11,7 +11,7 @@ export const displayMe = (socket, setMe) => {
         })
       })
 }
- 
+
 export const displayUsers = (socket, setConnectedUsers) => {
     socket.current.on('connectedUsers', (users) =>{
         setConnectedUsers(users)

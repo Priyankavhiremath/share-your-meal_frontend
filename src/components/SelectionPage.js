@@ -11,6 +11,7 @@ const SelectionPage = ({
   acceptedCall,
   incomingCall,
   acceptCall,
+  onConnect
 }) => {
   const history = useHistory()
   

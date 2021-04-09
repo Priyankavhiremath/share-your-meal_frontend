@@ -5,6 +5,15 @@
   padding: 0;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+.full-height {
+  height: 10rem;
+}
+
 .App {
   margin-top: 0;
   text-align: center;

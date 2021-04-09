@@ -38,6 +38,7 @@ const WelcomePage = () => {
           </div>
         </div>
       </div>
+
       {/* Welcome Text */}
       <div className="justify-content-center">
         <div className="p-3 text m-5 bg-light rounded border border-0 shadow m-5">

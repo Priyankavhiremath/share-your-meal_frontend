@@ -85,11 +85,19 @@ function App() {
     peer.signal(incomingCall.signal);
   };
 
+  const endCall = () => {
+    console.log("call ending...");
+    setAcceptedCall(false)
+    // setConnected(true)
+    history.push('/select')
+    setIncomingCall(false)
+  }
+  
   console.log(connected);
 
   return (
-    <>
-    <div className="App background">
+    
+    <div className="App background full-height">
       <Routing
         me={me}
         connected={connected}
@@ -97,6 +105,7 @@ function App() {
         onChangeForm={handleChangeForm}
         handleInviteBuddy={handleInviteBuddy}
         acceptCall={acceptCall}
+        endCall={endCall}
         connectedUsers={connectedUsers}
         acceptedCall={acceptedCall}
         incomingCall={incomingCall}
@@ -105,7 +114,7 @@ function App() {
       />
       <Footer />
     </div>
-    </>
+    
   );
 }
 
