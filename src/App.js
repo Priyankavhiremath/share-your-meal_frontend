@@ -4,7 +4,7 @@ import './styles/App.css';
 import './styles/RegisterForm.css'
 import Routing from "./components/Routing"
 import Footer from "./components/Footer"
-import { connectSocket, displayMe, displayUsers, recevingCall, acceptInvite } from './socket/socket'
+import { connectSocket, displayMe, displayUsers, recevingCall, acceptInvite, prepareDisconnection } from './socket/socket'
 import { createPeer, callUser, broadcastVideo, logPeerError, acceptIncomingCall } from './peer/peer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useHistory, } from "react-router-dom"
@@ -14,6 +14,7 @@ function App() {
   const [me, setMe] = useState({})
   const [connected, setConnected] = useState(false)
   const [connectedUsers, setConnectedUsers] = useState([])
+  const [callOngoing, setCallOngoing] = useState(false);
   const [incomingCall, setIncomingCall] = useState()
   const [acceptedCall, setAcceptedCall] = useState(false)
   const [stream, setStream] = useState()
@@ -22,6 +23,11 @@ function App() {
   const userVideo = useRef();
   const partnerVideo = useRef();
   const myPeer = useRef();
+
+  console.log({
+    connected,
+    acceptedCall
+  })
 
   useEffect(() => {
     connectSocket(socket);
@@ -40,7 +46,6 @@ function App() {
   };
 
   useEffect(() => {
-    if (connected) {
       navigator.mediaDevices
         .getUserMedia({ audio: true, video: true })
         .then((stream) => {
@@ -53,7 +58,6 @@ function App() {
           // What do you do if the user refuses the connection???
           console.log(error.message);
         });
-    }
   }, [connected]);
 
   const handleConnect = (event) => {
@@ -82,18 +86,21 @@ function App() {
     const peer = createPeer(null, { stream, initiator: false, trickle: false });
     acceptIncomingCall(peer, socket, incomingCall);
     broadcastVideo(peer, partnerVideo);
+    prepareDisconnection(socket, history)
     peer.signal(incomingCall.signal);
   };
 
-  const endCall = () => {
-    console.log("call ending...");
+  const handleCallOngoing= () => {
     setAcceptedCall(false)
-    // setConnected(true)
-    history.push('/select')
-    setIncomingCall(false)
+    setConnected(false)
+    setCallOngoing(true)
   }
-  
-  console.log(connected);
+
+  const endCall = () => {
+    console.log('Ending call')
+  }
+
+  // console.log(connected);
 
   return (
     
@@ -108,9 +115,12 @@ function App() {
         endCall={endCall}
         connectedUsers={connectedUsers}
         acceptedCall={acceptedCall}
+        onCallOngoing={handleCallOngoing}
         incomingCall={incomingCall}
         userVideo={userVideo}
         partnerVideo={partnerVideo}
+        callOngoing={callOngoing}
+        endCall={endCall}
       />
       <Footer />
     </div>

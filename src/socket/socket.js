@@ -34,3 +34,10 @@ export const acceptInvite = (socket, peer, setAcceptedCall) => {
         setAcceptedCall(true)
       })
 }
+
+export const prepareDisconnection = (socket, history) => {
+  socket.current.on('close', ()=>{
+    history.push('/')
+    window.location.reload()
+  })
+}
