@@ -103,8 +103,8 @@ function App() {
   // console.log(connected);
 
   return (
-    <>
-    <div className="App background">
+    
+    <div className="App background full-height">
       <Routing
         me={me}
         connected={connected}
@@ -112,6 +112,7 @@ function App() {
         onChangeForm={handleChangeForm}
         handleInviteBuddy={handleInviteBuddy}
         acceptCall={acceptCall}
+        endCall={endCall}
         connectedUsers={connectedUsers}
         acceptedCall={acceptedCall}
         onCallOngoing={handleCallOngoing}
@@ -123,7 +124,7 @@ function App() {
       />
       <Footer />
     </div>
-    </>
+    
   );
 }
 
