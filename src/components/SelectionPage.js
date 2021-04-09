@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BuddySelector from "../components/BuddySelector";
 import { useHistory } from "react-router-dom";
 
@@ -12,8 +12,16 @@ const SelectionPage = ({
   incomingCall,
   acceptCall,
 }) => {
-  const history = useHistory()
-  
+  const history = useHistory();
+
+  useEffect(() => {
+    if (acceptedCall) {
+      history.push("/call");
+    }
+  }, [history, acceptedCall]);
+
+  console.log({vid: userVideo?.current?.srcObject})
+
   return (
     <div>
       <h4>Hello {me.name}</h4>
@@ -22,18 +30,17 @@ const SelectionPage = ({
         from the list below.
       </p>
 
-
       {connected && (
         <>
           <video
             style={{
-              width: "15rem", 
-              height: "15rem", 
+              width: "15rem",
+              height: "15rem",
               borderRadius: "50%",
-              "object-fit": "cover",
+              objectFit: "cover",
               border: "0.2rem solid white",
               transform: "rotateY(180deg)",
-              "-webkit-transform": "rotateY(180deg)"
+              WebkitTransform: "rotateY(180deg)",
             }}
             playsInline
             muted
@@ -41,7 +48,7 @@ const SelectionPage = ({
             autoPlay
             name="userVideo"
           ></video>
-          
+
           {!acceptedCall && (
             <BuddySelector
               connectedUsers={connectedUsers}
@@ -55,17 +62,9 @@ const SelectionPage = ({
       {incomingCall && !acceptedCall && (
         <div>
           <p>{incomingCall.caller.name} is trying to call you!</p>
-          <button onClick={() => {
-            acceptCall()
-            history.push('/call')
-          }}>Yes please!</button>
+          <button onClick={() => acceptCall()}>Yes please!</button>
         </div>
       )}
-
-      {acceptedCall && (() => {
-        acceptCall();
-        history.push('/call') // it doesn't push to /call route, why?
-      })}
     </div>
   );
 };
