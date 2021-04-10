@@ -1,9 +1,8 @@
 import React from 'react'
 
-const LoginForm = () => {
-    return (
-        
-           <>
+const LoginForm = ({ onAuth, onSetCredentials }) => {
+  return (
+    <>
       <div className="text-light text-center">
         <div className="row mt-0">
           <div className="col-md-6 m-auto">
@@ -19,6 +18,9 @@ const LoginForm = () => {
                     name="name"
                     className="form-control"
                     placeholder="Enter Name"
+                    required
+                    autoFocus
+                    onChange={(e) => onSetCredentials(e)}
                   />
                 </div>
                 <div className="form-group">
@@ -29,17 +31,22 @@ const LoginForm = () => {
                     name="password"
                     className="form-control"
                     placeholder="Enter Password"
+                    required
+                    onChange={(e) => onSetCredentials(e)}
                   />
                 </div>
-                <button type="submit" className='purple-button'>Register</button>
+                <button
+                  onClick={() => onAuth()}
+                  type="submit"
+                  className='purple-button'
+                >Login</button>
               </form>
             </div>
           </div>
         </div>
       </div>
-     
-        </>
-    )
+    </>
+  )
 }
 
 export default LoginForm

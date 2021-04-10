@@ -6,8 +6,10 @@ import Routing from "./components/Routing"
 import Footer from "./components/Footer"
 import { connectSocket, displayMe, displayUsers, recevingCall, acceptInvite, prepareDisconnection } from './socket/socket'
 import { createPeer, callUser, broadcastVideo, logPeerError, acceptIncomingCall } from './peer/peer'
+import { login, logout, setAuthHeaders } from "./utils/auth";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useHistory, } from "react-router-dom"
+import { useHistory } from "react-router-dom";
+import Profile from "./components/Profile"
 
 function App() {
   const history = useHistory()
@@ -18,6 +20,7 @@ function App() {
   const [incomingCall, setIncomingCall] = useState()
   const [acceptedCall, setAcceptedCall] = useState(false)
   const [stream, setStream] = useState()
+  const [credentials, setCredentials] = useState();
 
   const socket = useRef();
   const userVideo = useRef();
@@ -100,7 +103,31 @@ function App() {
     console.log('Ending call')
   }
 
-  // console.log(connected);
+  const handleSetCredentials = (e) => {
+    setCredentials((prevCredentials) => ({
+      ...prevCredentials,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleAuthentication = async () => {
+    const isAuthenticated = await login(credentials);
+    if (isAuthenticated) {
+      history.push("/admin");
+    } else {
+      alert("Wrong credentials");
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    history.push("/auth");
+  };
+
+  useEffect(() => {
+    setAuthHeaders() && history.push("/admin");
+  }, [history]);
+
 
   return (
     
@@ -120,7 +147,10 @@ function App() {
         userVideo={userVideo}
         partnerVideo={partnerVideo}
         callOngoing={callOngoing}
-        endCall={endCall}
+        onAuth={handleAuthentication}
+        onSetCredentials={handleSetCredentials}
+        component={Profile}
+        onLogout={handleLogout}
       />
       <Footer />
     </div>
