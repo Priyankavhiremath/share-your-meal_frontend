@@ -104,27 +104,27 @@ function App() {
 
   return (
     
-    <div className="App background full-height">
-      <Routing
-        me={me}
-        connected={connected}
-        onConnect={handleConnect}
-        onChangeForm={handleChangeForm}
-        handleInviteBuddy={handleInviteBuddy}
-        acceptCall={acceptCall}
-        endCall={endCall}
-        connectedUsers={connectedUsers}
-        acceptedCall={acceptedCall}
-        onCallOngoing={handleCallOngoing}
-        incomingCall={incomingCall}
-        userVideo={userVideo}
-        partnerVideo={partnerVideo}
-        callOngoing={callOngoing}
-        endCall={endCall}
-      />
+    <div className="App" >
+      <div className="main">
+        <Routing
+          me={me}
+          connected={connected}
+          onConnect={handleConnect}
+          onChangeForm={handleChangeForm}
+          handleInviteBuddy={handleInviteBuddy}
+          acceptCall={acceptCall}
+          connectedUsers={connectedUsers}
+          acceptedCall={acceptedCall}
+          onCallOngoing={handleCallOngoing}
+          incomingCall={incomingCall}
+          userVideo={userVideo}
+          partnerVideo={partnerVideo}
+          callOngoing={callOngoing}
+          endCall={endCall}
+        />
+        </div>
       <Footer />
     </div>
-    
   );
 }
 

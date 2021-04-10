@@ -14,6 +14,8 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
           borderRadius: "50%",
           objectFit: "cover",
           border: "0.2rem solid white",
+          transform: "rotateY(180deg)",
+          WebkitTransform: "rotateY(180deg)",
           position: "absolute",
           top: 10,
           left: 10,
