@@ -132,6 +132,7 @@ function App() {
   return (
     
     <div className="App background full-height">
+      <div className="main">
       <Routing
         me={me}
         connected={connected}
@@ -152,6 +153,7 @@ function App() {
         component={Profile}
         onLogout={handleLogout}
       />
+      </div>
       <Footer />
     </div>
     
