@@ -6,18 +6,18 @@ import Card from 'react-bootstrap/Card';
 import '../styles/UserCard.css';
 
 
-const UserCard = ({ user, }) => {
+const UserCard = ({ user, handleInviteBuddy}) => {
     return (
         <div>
-            <Card >
+            <Card className="usercard" style={{width: '20rem'}}>
                 <Card.Header  className="username">
-                    <FaRegUserCircle /> {user.name}
+                    <FaRegUserCircle size="2rem" /> {user.name}
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>
-                    <p>calling from {user.country} and speaking {user.language} <br/> is a talker</p>
+                    <p>from {user.country} and speaking {user.language} <br/> is a talker/listener/both</p>
                     </Card.Text>
-                    <Button className="callmebutton shadow" >
+                    <Button className="callmebutton shadow" onClick={() => handleInviteBuddy(user.id)} >
                         <FaPhone />
                     </Button>
                 </Card.Body>

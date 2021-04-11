@@ -5,6 +5,7 @@
 .username {
   color: teal;
   font-family: "Mitr", sans-serif;
+  font-size: 1.5rem;
 }
 
 .callmebutton {
@@ -16,6 +17,8 @@
 }
 
 .callmebutton:hover {
-  border-color: rgb(1, 116, 116) !important;
-  background-image: linear-gradient(rgb(12, 173, 173), rgb(1, 116, 116));
+  background-image: linear-gradient(#f3a108, #fc8434);
+  border-color: #fc8434 !important;
+  /* border-color: rgb(1, 116, 116) !important;
+  background-image: linear-gradient(rgb(12, 173, 173), rgb(1, 116, 116));*/
 }
