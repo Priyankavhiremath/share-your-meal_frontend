@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import UserCard from "./UserCard";
 
 const BuddySelector = ({ connectedUsers, me, handleInviteBuddy }) => {
   return (
@@ -10,6 +11,7 @@ const BuddySelector = ({ connectedUsers, me, handleInviteBuddy }) => {
           .map((user) => {
             return (
               <Fragment key={user.id}>
+                <UserCard user={user} />
                 {user.name} -{user.country} -{user.language}
                 <br />
                 <button onClick={() => handleInviteBuddy(user.id)}>
