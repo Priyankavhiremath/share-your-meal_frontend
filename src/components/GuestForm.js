@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const GuestForm = ({onConnect, onChangeForm }) => {
+const GuestForm = ({ onConnect, onChangeForm }) => {
     return (
         <>
             <h1>Enter your info</h1>

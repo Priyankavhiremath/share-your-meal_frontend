@@ -11,6 +11,8 @@ const SelectionPage = ({
   acceptedCall,
   incomingCall,
   acceptCall,
+  onLogout
+
 }) => {
   const history = useHistory();
 
@@ -30,6 +32,7 @@ const SelectionPage = ({
         You are now online and available for calls. You can call a mealbuddy
         from the list below.
       </p>
+      <button onClick={onLogout}>Logout</button>
 
       {connected && (
         <>
