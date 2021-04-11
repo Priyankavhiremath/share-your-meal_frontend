@@ -6,8 +6,10 @@ import Routing from "./components/Routing"
 import Footer from "./components/Footer"
 import { connectSocket, displayMe, displayUsers, recevingCall, acceptInvite, prepareDisconnection } from './socket/socket'
 import { createPeer, callUser, broadcastVideo, logPeerError, acceptIncomingCall } from './peer/peer'
+import { login, logout, setAuthHeaders } from "./utils/auth";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useHistory, } from "react-router-dom"
+import { useHistory } from "react-router-dom";
+import Profile from "./components/Profile"
 
 function App() {
   const history = useHistory()
@@ -18,6 +20,7 @@ function App() {
   const [incomingCall, setIncomingCall] = useState()
   const [acceptedCall, setAcceptedCall] = useState(false)
   const [stream, setStream] = useState()
+  const [credentials, setCredentials] = useState();
 
   const socket = useRef();
   const userVideo = useRef();
@@ -100,29 +103,54 @@ function App() {
     console.log('Ending call')
   }
 
-  // console.log(connected);
+  const handleSetCredentials = (e) => {
+    setCredentials((prevCredentials) => ({
+      ...prevCredentials,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleAuthentication = async () => {
+    const isAuthenticated = await login(credentials);
+    if (isAuthenticated) {
+      history.push("/profile");
+    } else {
+      alert("Wrong credentials");
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    history.push("/");
+  };
+
+  useEffect(() => {
+    setAuthHeaders() && history.push("/profile");
+  }, [history]);
+
 
   return (
-    
-    <div className="App" >
-      <div className="main">
-        <Routing
-          me={me}
-          connected={connected}
-          onConnect={handleConnect}
-          onChangeForm={handleChangeForm}
-          handleInviteBuddy={handleInviteBuddy}
-          acceptCall={acceptCall}
-          connectedUsers={connectedUsers}
-          acceptedCall={acceptedCall}
-          onCallOngoing={handleCallOngoing}
-          incomingCall={incomingCall}
-          userVideo={userVideo}
-          partnerVideo={partnerVideo}
-          callOngoing={callOngoing}
-          endCall={endCall}
-        />
-        </div>
+    <div className="App background full-height">
+      <Routing
+        me={me}
+        connected={connected}
+        onConnect={handleConnect}
+        onChangeForm={handleChangeForm}
+        handleInviteBuddy={handleInviteBuddy}
+        acceptCall={acceptCall}
+        endCall={endCall}
+        connectedUsers={connectedUsers}
+        acceptedCall={acceptedCall}
+        onCallOngoing={handleCallOngoing}
+        incomingCall={incomingCall}
+        userVideo={userVideo}
+        partnerVideo={partnerVideo}
+        callOngoing={callOngoing}
+        onAuth={handleAuthentication}
+        onSetCredentials={handleSetCredentials}
+        component={Profile}
+        onLogout={handleLogout}
+      />
       <Footer />
     </div>
   );
