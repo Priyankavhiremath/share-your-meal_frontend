@@ -3,7 +3,7 @@ import React from 'react'
 
 const GuestForm = ({ onConnect, onChangeForm }) => {
     return (
-        <>
+        <div>
             <h1>Enter your info</h1>
             <form className="text-light text-center" onSubmit={onConnect} onChange={onChangeForm}>
                 <div className="row mt-0">
@@ -50,8 +50,8 @@ const GuestForm = ({ onConnect, onChangeForm }) => {
                 </div>
                 </div>
             </form>
-        </>
         
+            </div>
     )
 }
 
