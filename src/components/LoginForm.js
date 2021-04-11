@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LoginForm = ({ onAuth, onSetCredentials }) => {
+const LoginForm = ({ onAuth, onSetCredentials, onConnect, onChangeForm }) => {
   return (
     <>
       <div className="text-light text-center">
@@ -9,15 +9,15 @@ const LoginForm = ({ onAuth, onSetCredentials }) => {
             <div className="card card-body bg-light border border-0 shadow m-5">
               <h1 className="text-center mb-3 ">Login</h1>
 
-              <form>
+              <form form className="text-light text-center" onSubmit={onConnect} onChange={onChangeForm}> 
                 <div className="form-group"> 
-                  <label htmlFor="name">Name</label>
+                  <label htmlFor="email">Email</label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
+                    id="email"
+                    name="email"
                     className="form-control"
-                    placeholder="Enter Name"
+                    placeholder="Enter email"
                     required
                     autoFocus
                     onChange={(e) => onSetCredentials(e)}

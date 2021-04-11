@@ -106,14 +106,14 @@ function App() {
   const handleSetCredentials = (e) => {
     setCredentials((prevCredentials) => ({
       ...prevCredentials,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     }));
   };
 
   const handleAuthentication = async () => {
     const isAuthenticated = await login(credentials);
     if (isAuthenticated) {
-      history.push("/admin");
+      history.push("/profile");
     } else {
       alert("Wrong credentials");
     }
@@ -121,11 +121,11 @@ function App() {
 
   const handleLogout = () => {
     logout();
-    history.push("/auth");
+    history.push("/");
   };
 
   useEffect(() => {
-    setAuthHeaders() && history.push("/admin");
+    setAuthHeaders() && history.push("/profile");
   }, [history]);
 
 
