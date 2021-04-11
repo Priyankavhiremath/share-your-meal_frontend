@@ -1,6 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const LoginForm = ({ onAuth, onSetCredentials, onConnect, onChangeForm }) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onAuth();
+  };
+
   return (
     <>
       <div className="text-light text-center">
@@ -9,8 +14,13 @@ const LoginForm = ({ onAuth, onSetCredentials, onConnect, onChangeForm }) => {
             <div className="card card-body bg-light border border-0 shadow m-5">
               <h1 className="text-center mb-3 ">Login</h1>
 
-              <form form className="text-light text-center" onSubmit={onConnect} onChange={onChangeForm}> 
-                <div className="form-group"> 
+              <form
+                form
+                className="text-light text-center"
+                onSubmit={onConnect}
+                onChange={onChangeForm}
+              >
+                <div className="form-group">
                   <label htmlFor="email">Email</label>
                   <input
                     type="text"
@@ -36,17 +46,19 @@ const LoginForm = ({ onAuth, onSetCredentials, onConnect, onChangeForm }) => {
                   />
                 </div>
                 <button
-                  onClick={() => onAuth()}
+                  onClick={(e) => handleSubmit(e)}
                   type="submit"
-                  className='purple-button'
-                >Login</button>
+                  className="purple-button"
+                >
+                  Login
+                </button>
               </form>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;
