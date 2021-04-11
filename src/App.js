@@ -130,7 +130,6 @@ function App() {
 
 
   return (
-    
     <div className="App background full-height">
       <Routing
         me={me}
@@ -154,7 +153,6 @@ function App() {
       />
       <Footer />
     </div>
-    
   );
 }
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const WelcomePage = () => {
   return (
-    <div className="background">
+    <div className="welcome">
       <div className="text-light text-center">
         <h2>
           Welcome to <br/><span className="logo display-3">Share Your Meal</span>
