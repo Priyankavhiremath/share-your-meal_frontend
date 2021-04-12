@@ -12,7 +12,7 @@ const Profile = ({ me, onLogout }) => {
         console.log({ userData });
         setUser(userData);
       } catch (e) {
-        // onLogout();  // bypassing this just to see the cookie
+        onLogout(); // bypassing this just to see the cookie
         // if there’s an error, send the user back to the login page
       }
     };

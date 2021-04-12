@@ -113,6 +113,11 @@ function App() {
 
   const endCall = () => {
     console.log("Ending call");
+    setConnected(true);
+    setCallOngoing(false);
+    setAcceptedCall(false);
+    setIncomingCall(false);
+    history.push("/select");
   };
 
   const handleSetCredentials = (e) => {
