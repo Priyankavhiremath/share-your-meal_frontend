@@ -1,12 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HangUp from "../images/hangup.png";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall }) => {
+  const [callProgress, setCallProgress] = useState(0);
+
+  useEffect(()=>{
+    const interval = setInterval(()=>{
+      setCallProgress((progress)=>progress+1);
+    }, 1200);
+    return () => clearInterval(interval);
+  },[]);
+
   useEffect(() => {
     onCallOngoing();
   }, [onCallOngoing]);
   return (
     <div>
+      <ProgressBar className="custom-progress" variant="warning" now={callProgress} />
       <video
         style={{
           width: "15rem",
@@ -17,8 +28,8 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
           transform: "rotateY(180deg)",
           WebkitTransform: "rotateY(180deg)",
           position: "absolute",
-          top: 10,
-          left: 10,
+          top: 50,
+          left: 20,
         }}
         playsInline
         muted
@@ -26,13 +37,14 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
         autoPlay
         name="userVideo"
       ></video>
+      
       <img
         src={HangUp}
         alt="End call"
         style={{
           position: "absolute",
           width: "4rem",
-          bottom: 10,
+          bottom: 100,
           right: 10,
           zIndex: 1,
           filter: "invert(100%)",
@@ -52,6 +64,7 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
         autoPlay
         name="partnerVideo"
       ></video>
+      
     </div>
   );
 };
