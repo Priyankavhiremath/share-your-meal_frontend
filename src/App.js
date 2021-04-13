@@ -33,7 +33,7 @@ function App() {
   const [acceptedCall, setAcceptedCall] = useState(false);
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
-
+  
   const socket = useRef();
   const userVideo = useRef();
   const partnerVideo = useRef();
@@ -169,7 +169,7 @@ function App() {
           onSetCredentials={handleSetCredentials}
           // component={Profile}
           onLogout={handleLogout}
-        />
+          />
       </div>
       <Footer />
     </div>
