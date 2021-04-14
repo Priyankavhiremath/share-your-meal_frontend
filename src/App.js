@@ -15,7 +15,7 @@ import {
   createPeer,
   callUser,
   broadcastVideo,
-  logPeerError,
+  peerError,
   acceptIncomingCall,
 } from "./peer/peer";
 import { login, logout, setAuthHeaders } from "./utils/auth";
@@ -41,6 +41,9 @@ function App() {
   const [username, setUsername] = useState("");
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+
+  const [buddy, setBuddy] = useState()
+
   
   const socket = useRef();
   const userVideo = useRef();
@@ -132,6 +135,8 @@ function App() {
     displayUsers(socket, setConnectedUsers);
     //------------------------------------------------
     recevingCall(socket, setIncomingCall);
+    //------------------------------------------------
+    prepareDisconnection(socket, history);
   }, []);
 
   const handleChangeForm = (e) => {
@@ -171,9 +176,10 @@ function App() {
       initiator: true,
       trickle: false,
     });
+    setBuddy(id)
     callUser({ peer, socket, id, me });
     broadcastVideo(peer, partnerVideo);
-    logPeerError(peer);
+    peerError(peer, endCall);
     acceptInvite(socket, peer, setAcceptedCall);
     console.log("accepting call");
   };
@@ -183,7 +189,7 @@ function App() {
     const peer = createPeer(null, { stream, initiator: false, trickle: false });
     acceptIncomingCall(peer, socket, incomingCall);
     broadcastVideo(peer, partnerVideo);
-    prepareDisconnection(socket, history);
+    peerError(peer, endCall);
     peer.signal(incomingCall.signal);
   };
 
@@ -194,12 +200,17 @@ function App() {
   };
 
   const endCall = () => {
-    console.log("Ending call");
-    setConnected(true);
-    setCallOngoing(false);
-    setAcceptedCall(false);
-    setIncomingCall(false);
-    history.push("/select");
+    myPeer.current && myPeer.current.destroy()
+    if (incomingCall) {
+      // console.log(`I am the at the receiving end. sending the end call signal to the caller: ${incomingCall && incomingCall.caller.id}`)
+      // console.log(socket.current)
+      socket.current.emit('endCall', incomingCall.caller.id);
+    } else {
+      // console.log(`I am the one calling. sending the end call signal to my buddy: ${incomingCall && incomingCall.caller.id}`)
+      socket.current.emit('endCall', buddy);
+    }
+    history.push("/");
+    window.location.reload();
   };
 
   const handleSetCredentials = (e) => {
@@ -249,7 +260,6 @@ function App() {
           callOngoing={callOngoing}
           onAuth={handleAuthentication}
           onSetCredentials={handleSetCredentials}
-          // component={Profile}
           onLogout={handleLogout}
           username={username}
           setUsername={setUsername}

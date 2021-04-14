@@ -19,12 +19,6 @@ const BuddySelector = ({ connectedUsers, me, handleInviteBuddy }) => {
             return (
               <Fragment key={user.id}>
                 <UserCard user={user} handleInviteBuddy={handleInviteBuddy} />
-                {/*{user.name} -{user.country} -{user.language}
-                <br />
-                <button onClick={() => handleInviteBuddy(user.id)}>
-                  Pick me
-                </button>
-            <br />*/}
                 <br />
               </Fragment>
             );
