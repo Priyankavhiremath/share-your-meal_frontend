@@ -20,6 +20,11 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
     setIsLastMinute(true);
   }, [callProgress]);
 
+  useEffect(()=>{
+    if (callProgress === 100)
+    endCall();
+  }, [callProgress]);
+
   useEffect(() => {
     onCallOngoing();
   }, [onCallOngoing]);
