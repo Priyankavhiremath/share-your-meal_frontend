@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import HangUp from "../images/hangup.png";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import LastMinuteMessage from "./LastMinuteMessage";
+import { Howl, Howler } from "howler";
 
 const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall }) => {
   const [callProgress, setCallProgress] = useState(0);
   const [isLastMinute, setIsLastMinute] = useState(false);
-  const [timeIsUp, setTimeIsUp] = useState(false);
+  
+  const endSound = new Howl ({
+    src: ['/sounds/endBellSoft.mp3'],
+    volume: 0.4
+  })
 
   useEffect(()=>{
     const interval = setInterval(()=>{
@@ -14,12 +19,15 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
     }, 1200); 
     return () => clearInterval(interval);
   },[]);
-
+// set
   useEffect(()=>{
-    if (callProgress >= 50 )
-    setIsLastMinute(true);
+    if (callProgress === 50 )
+    {setIsLastMinute(true);
+     endSound.play();
+    };
   }, [callProgress]);
 
+//call automatic hang up
   useEffect(()=>{
     if (callProgress === 100)
     endCall();
@@ -53,9 +61,7 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
       ></video>
       { isLastMinute && (
         <div>
-        <audio src="/sounds/lastMinuteBell.mp3">
-       </audio>
-        <LastMinuteMessage />
+         <LastMinuteMessage />
         </div>
       )}
       

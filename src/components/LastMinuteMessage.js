@@ -10,9 +10,9 @@ const LastMinuteMessage = () => {
             <h1 className="lastMinute" style={{
             position:"absolute",
             top: "10vh",
-            left: 150,
-            opacity: "0.6",
-            fontSize: "20rem",
+            right: 150,
+            opacity: "0.4",
+            fontSize: "10rem",
             color: "blanchedalmond",
             zIndex:1,
             }}>last minute...</h1>
