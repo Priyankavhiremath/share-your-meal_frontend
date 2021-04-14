@@ -13,7 +13,6 @@ const SelectionPage = ({
   incomingCall,
   acceptCall,
   onLogout
-
 }) => {
   const history = useHistory();
 

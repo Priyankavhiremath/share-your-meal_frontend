@@ -15,7 +15,7 @@ import {
   createPeer,
   callUser,
   broadcastVideo,
-  logPeerError,
+  peerError,
   acceptIncomingCall,
 } from "./peer/peer";
 import { login, logout, setAuthHeaders } from "./utils/auth";
@@ -95,7 +95,7 @@ function App() {
     setBuddy(id)
     callUser({ peer, socket, id, me });
     broadcastVideo(peer, partnerVideo);
-    logPeerError(peer);
+    peerError(peer, endCall);
     acceptInvite(socket, peer, setAcceptedCall);
     console.log("accepting call");
   };
@@ -105,6 +105,7 @@ function App() {
     const peer = createPeer(null, { stream, initiator: false, trickle: false });
     acceptIncomingCall(peer, socket, incomingCall);
     broadcastVideo(peer, partnerVideo);
+    peerError(peer, endCall);
     peer.signal(incomingCall.signal);
   };
 
@@ -127,12 +128,6 @@ function App() {
 
     history.push("/");
     window.location.reload();
-
-    // setConnected(true);
-    // setCallOngoing(false);
-    // setAcceptedCall(false);
-    // setIncomingCall(false);
-    // history.push("/select");
   };
 
   const handleSetCredentials = (e) => {
