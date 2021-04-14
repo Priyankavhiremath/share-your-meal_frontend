@@ -169,6 +169,7 @@ function App() {
           onSetCredentials={handleSetCredentials}
           // component={Profile}
           onLogout={handleLogout}
+          setMe={setMe}
         />
       </div>
       <Footer />
