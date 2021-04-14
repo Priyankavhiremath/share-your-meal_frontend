@@ -7,7 +7,7 @@ const BuddySelector = ({ connectedUsers, me, handleInviteBuddy }) => {
     <Container >
       <Row>
         <Col>
-      <h1>Pick your meal buddy</h1>
+      <h2>Pick your meal buddy</h2>
       </Col>
       </Row>
       <Row className="justify-content-center">

@@ -21,7 +21,9 @@ import {
 import { login, logout, setAuthHeaders } from "./utils/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
-import Profile from "./components/Profile";
+import { v4 as uuidv4 } from "uuid";
+import io from "socket.io-client";
+
 
 function App() {
   const history = useHistory();
@@ -33,16 +35,94 @@ function App() {
   const [acceptedCall, setAcceptedCall] = useState(false);
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
+
+  const [meMessage, setMeMessage] = useState()
+  const [chatRoomInfo, setChatroomInfo] = useState();
+  const [username, setUsername] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
   
   const socket = useRef();
   const userVideo = useRef();
   const partnerVideo = useRef();
   const myPeer = useRef();
 
-  console.log({
-    connected,
-    acceptedCall,
-  });
+  // -----------------------message logic------------------------------
+  const updateUsersNumber = (number) => {
+    setChatroomInfo((prevState) => ({
+      ...prevState,
+      numberOfConnectedUsers: number,
+    }));
+  };
+
+  const updateUsers = (usersMessage) => {
+    setChatroomInfo((prevState) => ({ ...prevState, usersMessage }));
+  };
+
+  const addMessage = (
+    text,
+    from,
+    color,
+    date = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  ) => {
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        id: uuidv4(),
+        text,
+        from,
+        date,
+        color,
+      },
+    ]);
+  };
+
+  const handleNewMessage = (e) => {
+    e.preventDefault();
+    addMessage(message, "meMessage");
+    socket.current.emit("newMessage", message);
+    setMessage("");
+  };
+
+  useEffect(() => {
+    if (meMessage) {
+      socket.current = io.connect("http://localhost:8000/");
+      console.log(meMessage);
+
+      socket.current.emit("newUser", { username: meMessage });
+
+      socket.current.on("loginSuccess", ({ numberOfConnectedUsers, usersMessage }) => {
+        addMessage(`You have joined the chatroom!`, "Bot");
+        updateUsersNumber(numberOfConnectedUsers);
+        updateUsers(usersMessage);
+      });
+
+      socket.current.on(
+        "userJoined",
+        ({ numberOfConnectedUsers, usersMessage, username }) => {
+          addMessage(`${username} has joined the chatroom!`, "Bot");
+          updateUsersNumber(numberOfConnectedUsers);
+          updateUsers(usersMessage);
+        }
+      );
+
+      socket.current.on("newMessage", ({ from, message, color }) => {
+        addMessage(message, from, color);
+      });
+
+      socket.current.on(
+        "userDisconnected",
+        ({ username, usersMessage, numberOfConnectedUsers }) => {
+          addMessage(`${username} has left the chatroom!`, "Bot");
+          updateUsersNumber(numberOfConnectedUsers);
+          updateUsers(usersMessage);
+        }
+      );
+    }
+  }, [meMessage]);
+
+
+  // -----------------------video logic------------------------------
 
   useEffect(() => {
     connectSocket(socket);
@@ -58,6 +138,8 @@ function App() {
     setMe((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
+    setMeMessage(username)
+    console.log(username)
   };
 
   useEffect(() => {
@@ -169,6 +251,16 @@ function App() {
           onSetCredentials={handleSetCredentials}
           // component={Profile}
           onLogout={handleLogout}
+          username={username}
+          setUsername={setUsername}
+          setMe={setMe}
+          chatRoomInfo={chatRoomInfo}
+          messages={messages}
+          message={message}
+          setMessage={setMessage}
+          handleNewMessage={handleNewMessage}
+          meMessage={meMessage}
+          setMeMessage={setMeMessage}
           />
       </div>
       <Footer />

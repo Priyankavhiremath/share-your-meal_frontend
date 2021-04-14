@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
 export const connectSocket = (socket) => {
-  socket.current = io.connect(process.env.REACT_APP_BACKEND_API_HEROKU);
+  socket.current = io.connect(process.env.REACT_APP_BACKEND_API_LOCAL);
 };
 
 export const displayMe = (socket, setMe) => {
