@@ -33,6 +33,7 @@ function App() {
   const [acceptedCall, setAcceptedCall] = useState(false);
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
+  const [buddy, setBuddy] = useState()
   
   const socket = useRef();
   const userVideo = useRef();
@@ -52,6 +53,8 @@ function App() {
     displayUsers(socket, setConnectedUsers);
     //------------------------------------------------
     recevingCall(socket, setIncomingCall);
+    //------------------------------------------------
+    prepareDisconnection(socket, history);
   }, []);
 
   const handleChangeForm = (e) => {
@@ -89,6 +92,7 @@ function App() {
       initiator: true,
       trickle: false,
     });
+    setBuddy(id)
     callUser({ peer, socket, id, me });
     broadcastVideo(peer, partnerVideo);
     logPeerError(peer);
@@ -101,7 +105,6 @@ function App() {
     const peer = createPeer(null, { stream, initiator: false, trickle: false });
     acceptIncomingCall(peer, socket, incomingCall);
     broadcastVideo(peer, partnerVideo);
-    prepareDisconnection(socket, history);
     peer.signal(incomingCall.signal);
   };
 
@@ -112,12 +115,24 @@ function App() {
   };
 
   const endCall = () => {
-    console.log("Ending call");
-    setConnected(true);
-    setCallOngoing(false);
-    setAcceptedCall(false);
-    setIncomingCall(false);
-    history.push("/select");
+    myPeer.current && myPeer.current.destroy()
+    if (incomingCall) {
+      // console.log(`I am the at the receiving end. sending the end call signal to the caller: ${incomingCall && incomingCall.caller.id}`)
+      // console.log(socket.current)
+      socket.current.emit('endCall', incomingCall.caller.id);
+    } else {
+      // console.log(`I am the one calling. sending the end call signal to my buddy: ${incomingCall && incomingCall.caller.id}`)
+      socket.current.emit('endCall', buddy);
+    }
+
+    history.push("/");
+    window.location.reload();
+
+    // setConnected(true);
+    // setCallOngoing(false);
+    // setAcceptedCall(false);
+    // setIncomingCall(false);
+    // history.push("/select");
   };
 
   const handleSetCredentials = (e) => {

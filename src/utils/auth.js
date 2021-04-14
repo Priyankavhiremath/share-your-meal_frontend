@@ -1,10 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
+import serverUrl from "../utils/serverUrl"
 
-const { REACT_APP_NAME, REACT_APP_BACKEND_API_HEROKU } = process.env;
+const { REACT_APP_NAME } = process.env;
 
-axios.defaults.baseURL = REACT_APP_BACKEND_API_HEROKU;
+axios.defaults.baseURL = serverUrl;
 
 const setAuthHeaders = () => {
   const token = Cookies.get(`${REACT_APP_NAME}-auth-token`);
@@ -30,7 +31,7 @@ const userContext = async () => {
 const login = async (credentials) => {
   try {
     const data = await axios.post(
-      `${REACT_APP_BACKEND_API_HEROKU}/auth/login`,
+      `${serverUrl}/auth/login`,
       {
         ...credentials,
       }

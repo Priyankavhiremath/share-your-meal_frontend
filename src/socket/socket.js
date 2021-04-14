@@ -1,7 +1,8 @@
 import io from "socket.io-client";
+import serverUrl from "../utils/serverUrl"
 
 export const connectSocket = (socket) => {
-  socket.current = io.connect(process.env.REACT_APP_BACKEND_API_HEROKU);
+  socket.current = io.connect(serverUrl);
 };
 
 export const displayMe = (socket, setMe) => {
@@ -36,7 +37,9 @@ export const acceptInvite = (socket, peer, setAcceptedCall) => {
 };
 
 export const prepareDisconnection = (socket, history) => {
-  socket.current.on("close", () => {
+  console.log('setting up the end call signal!')
+  socket.current.on("endCall", () => {
+    console.log('received the end call signal!')
     history.push("/");
     window.location.reload();
   });
