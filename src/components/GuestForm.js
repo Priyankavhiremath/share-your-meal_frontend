@@ -1,20 +1,11 @@
 import React from 'react'
 
-const GuestForm = ({
-    onConnect,
-    onChangeForm,
-    username,
-    setUsername
-}) => {
-    
+
+const GuestForm = ({ onConnect, onChangeForm }) => {
     return (
         <div>
             <h1>Enter your info</h1>
-            <form
-                className="text-light text-center"
-                onSubmit={onConnect}
-                onChange={onChangeForm}
-            >
+            <form className="text-light text-center" onSubmit={onConnect} onChange={onChangeForm}>
                 <div className="row mt-0">
                 <div className="col-md-6 m-auto">
                     <div className="card card-body bg-light border border-0 shadow m-5">
@@ -29,10 +20,6 @@ const GuestForm = ({
                             name="name"
                             className="form-control"
                             placeholder="Enter Name"
-                            value={username}
-                            label="Enter your username"
-                            onChange={(e) => setUsername(e.target.value)}
-                            
                         />
                         </div>
                     
@@ -57,10 +44,7 @@ const GuestForm = ({
                         />
                         </div>
 
-                                <button
-                                    type="submit"
-                                    className='purple-button'
-                                >Connect</button>
+                        <button type="submit" className='purple-button'>Connect</button>
                     </div>
                     </div>
                 </div>
