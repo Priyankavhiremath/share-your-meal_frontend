@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import BuddySelector from "../components/BuddySelector";
 import { useHistory } from "react-router-dom";
-import { Button } from 'react-bootstrap';
-import ChatWindow from "./ChatWindow";
+import {Button} from 'react-bootstrap';
 
 const SelectionPage = ({
   me,
@@ -13,31 +12,27 @@ const SelectionPage = ({
   acceptedCall,
   incomingCall,
   acceptCall,
-  onLogout,
-  chatRoomInfo,
-  messages,
-  message,
-  setMessage,
-  handleNewMessage,
-  meMessage
+  onLogout
 }) => {
   const history = useHistory();
+
   useEffect(() => {
     if (acceptedCall) {
       history.push("/call");
     }
   }, [history, acceptedCall]);
+
   console.log({vid: userVideo?.current?.srcObject})
 
   return (
     <div>
       <h1>Hello {me.name}</h1>
+      {console.log(me)}
       <p>
         You are now online and available for calls. You can call a mealbuddy
         from the list below or <Button className="roundButton" onClick={onLogout}>Logout</Button>
         <br/>
-      </p>
-      
+      </p> 
       {connected && (
         <div>
           <video
@@ -72,19 +67,6 @@ const SelectionPage = ({
               handleInviteBuddy={handleInviteBuddy}
             />
           )}
-
-          <div>
-            {meMessage && (
-              <ChatWindow
-                meMessage={meMessage}
-                chatRoomInfo={chatRoomInfo}
-                messages={messages}
-                message={message}
-                setMessage={setMessage}
-                handleNewMessage={handleNewMessage}
-              />
-            )}
-          </div>
         </div>
       )}
 
