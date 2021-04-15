@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
-import ReactLanguageSelect from "react-languages-select";
 import Select from "react-select";
 
 const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
@@ -34,15 +33,15 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
   const handleLanguage = (e) => {
     setMe((prevState) => ({ ...prevState, language: e }));
   };
+  const handleComStyle = (e) => {
+    setMe((prevState) => ({ ...prevState, comStyle: e.target.value }));
+    // setRadio(e.target.value);
+  };
 
   return (
     <div>
       <h1>Enter your info</h1>
-      <form
-        className="text-center"
-        onSubmit={onConnect}
-        onChange={onChangeForm}
-      >
+      <form className="text-center" onSubmit={onConnect}>
         <div className="row mt-0">
           <div className="col-md-6 m-auto">
             <div className="card animated zoomIn mt-5">
@@ -58,6 +57,7 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                       name="name"
                       className="form-control"
                       placeholder="Enter Name"
+                      onChange={onChangeForm}
                     />
                   </div>
                   <ReactFlagsSelect
@@ -70,16 +70,6 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                     selected={me.country}
                     onSelect={(code) => handleSetCountry(code)}
                   />
-                  {/* <div className="form-group"> 
-                        <label htmlFor="country">Country</label>
-                        <input
-                            type="country"
-                            id="country"
-                            name="country"
-                            className="form-control"
-                            placeholder="Enter Country"
-                        />
-                        </div> */}
                   <br />
                   <div className="form-group">
                     {/* <label htmlFor="language">Language</label> */}
@@ -93,6 +83,43 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                       placeholder="Select Languages"
                       isMulti
                     />
+                  </div>
+                  <h5>Communication Style</h5>
+                  <div className="form-group">
+                    {/* <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      className="form-control"
+                      placeholder="Enter Name"
+                    /> */}
+                    {/* <br /> */}
+                    <input
+                      type="radio"
+                      className=" mr-1"
+                      checked={me.comStyle && me.comStyle === "Speaker"}
+                      value="Speaker"
+                      onChange={handleComStyle}
+                    />
+                    <label>Speaker </label>
+
+                    <input
+                      type="radio"
+                      className="ml-5 mr-1"
+                      checked={me.comStyle && me.comStyle === "Listener"}
+                      value="Listener"
+                      onChange={handleComStyle}
+                    />
+                    <label>Listener </label>
+
+                    <input
+                      type="radio"
+                      className="ml-5 mr-1"
+                      checked={me.comStyle && me.comStyle === "both"}
+                      value="both"
+                      onChange={handleComStyle}
+                    />
+                    <label>Both </label>
                   </div>
 
                   <button type="submit" className="purple-button text-centre">
