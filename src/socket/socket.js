@@ -44,6 +44,14 @@ export const acceptInvite = (socket, peer, setAcceptedCall, dialSignal) => {
   });
 };
 
+export const rejectInvite = (socket, setIWasRejected, dialSignal, buddy) => {
+  socket.current.on("rejectedCall", ()=>{
+    setIWasRejected(true);
+    dialSignal.unload();
+    socket.current.emit("endCall", buddy ); 
+  });
+};
+
 export const prepareDisconnection = (socket, history) => {
   console.log('setting up the end call signal!')
   socket.current.on("endCall", () => {

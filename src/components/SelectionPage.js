@@ -14,6 +14,8 @@ const SelectionPage = ({
   acceptedCall,
   incomingCall,
   acceptCall,
+  rejectCall,
+  userRejectsCall,
   onLogout,
 }) => {
   const history = useHistory();
@@ -56,9 +58,8 @@ const SelectionPage = ({
             autoPlay
             name="userVideo"
           ></video>
-          {incomingCall && !acceptedCall && (
+          {incomingCall && !acceptedCall && !userRejectsCall && (
             <div>
-              {/*<CallNotification />*/}
               <h4>
                 {incomingCall.caller.name} <br />
                 from{" "}
@@ -76,7 +77,7 @@ const SelectionPage = ({
               </Button>
               <br />
               <br />
-              <Button className="rejectButton">Sorry, no</Button>
+              <Button className="rejectButton" onClick={()=> rejectCall()}>Sorry, no</Button>
             </div>
           )}
           {!acceptedCall && (

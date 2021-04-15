@@ -9,6 +9,7 @@ import {
   displayUsers,
   recevingCall,
   acceptInvite,
+  rejectInvite,
   prepareDisconnection,
 } from "./socket/socket";
 import {
@@ -32,6 +33,9 @@ function App() {
   const [callOngoing, setCallOngoing] = useState(false);
   const [incomingCall, setIncomingCall] = useState();
   const [acceptedCall, setAcceptedCall] = useState(false);
+  const [userRejectsCall,setUserRejectsCall] = useState(false);
+  const [iWasRejected, setIWasRejected] = useState(false);
+  
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
   const [buddy, setBuddy] = useState()
@@ -104,6 +108,7 @@ function App() {
     dialSignal.play();
     broadcastVideo(peer, partnerVideo);
     peerError(peer, endCall);
+    rejectInvite(socket, setIWasRejected, dialSignal)
     acceptInvite(socket, peer, setAcceptedCall, dialSignal);
     console.log("accepting call");
   };
@@ -115,6 +120,20 @@ function App() {
     broadcastVideo(peer, partnerVideo);
     peerError(peer, endCall);
     peer.signal(incomingCall.signal);
+  };
+
+  const rejectCall = () => {
+    if (incomingCall) {
+      console.log('I will reject the call');
+    setUserRejectsCall(true);
+    socket.current.emit("rejectCall", 
+    incomingCall.caller.id );
+    } 
+    //else {
+    //  setIWasRejected(true);
+    //  dialSignal.unload();
+    //  socket.current.emit("endCall", buddy );
+    //}; 
   };
 
   const handleCallOngoing = () => {
@@ -175,6 +194,7 @@ function App() {
           onChangeForm={handleChangeForm}
           handleInviteBuddy={handleInviteBuddy}
           acceptCall={acceptCall}
+          rejectCall={rejectCall}
           endCall={endCall}
           connectedUsers={connectedUsers}
           acceptedCall={acceptedCall}
@@ -183,6 +203,7 @@ function App() {
           userVideo={userVideo}
           partnerVideo={partnerVideo}
           callOngoing={callOngoing}
+          userRejectsCall={userRejectsCall}
           onAuth={handleAuthentication}
           onSetCredentials={handleSetCredentials}
           // component={Profile}
