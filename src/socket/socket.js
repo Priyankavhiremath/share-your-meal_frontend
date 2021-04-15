@@ -1,7 +1,14 @@
 import io from "socket.io-client";
+import serverUrl from "../utils/serverUrl"
+import { Howl, Howler } from "howler";
+
+const callNotification = new Howl ({
+  src: ['/sounds/doorBell.mp3'],
+  volume: 0.4
+   })
 
 export const connectSocket = (socket) => {
-  socket.current = io.connect(process.env.REACT_APP_BACKEND_API_HEROKU);
+  socket.current = io.connect(serverUrl);
 };
 
 export const displayMe = (socket, setMe) => {
@@ -21,6 +28,7 @@ export const displayUsers = (socket, setConnectedUsers) => {
 export const recevingCall = (socket, setIncomingCall) => {
   socket.current.on("incomingCall", ({ from, signal }) => {
     console.log({ from });
+    callNotification.play();
     setIncomingCall({
       caller: from,
       signal,
@@ -36,7 +44,9 @@ export const acceptInvite = (socket, peer, setAcceptedCall) => {
 };
 
 export const prepareDisconnection = (socket, history) => {
-  socket.current.on("close", () => {
+  console.log('setting up the end call signal!')
+  socket.current.on("endCall", () => {
+    console.log('received the end call signal!')
     history.push("/");
     window.location.reload();
   });

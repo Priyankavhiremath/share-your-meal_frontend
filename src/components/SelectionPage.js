@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import BuddySelector from "../components/BuddySelector";
 import { useHistory } from "react-router-dom";
 import {Button} from 'react-bootstrap';
+import CallNotification from "./CallNotification";
+
 
 const SelectionPage = ({
   me,
@@ -13,7 +15,6 @@ const SelectionPage = ({
   incomingCall,
   acceptCall,
   onLogout
-
 }) => {
   const history = useHistory();
 
@@ -54,6 +55,7 @@ const SelectionPage = ({
           ></video>
           {incomingCall && !acceptedCall && (
                   <div>
+                    {/*<CallNotification />*/}
                     <h4>{incomingCall.caller.name} <br/>from {incomingCall.caller.country} <br/>speaking {incomingCall.caller.language} <br/>is trying to call you!</h4>
                     <Button className="acceptButton" onClick={() => acceptCall()}>Yes please!</Button>
                     <br/>

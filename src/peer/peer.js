@@ -30,9 +30,10 @@ export const broadcastVideo = (peer, partnerVideo) => {
       })
 }
 
-export const logPeerError = (peer) => {
+export const peerError = (peer, endCall) => {
     peer.on('error', (err) => {
         console.log(err)
+        endCall()
       })
 };
 
