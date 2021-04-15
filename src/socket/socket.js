@@ -36,8 +36,9 @@ export const recevingCall = (socket, setIncomingCall) => {
   });
 };
 
-export const acceptInvite = (socket, peer, setAcceptedCall) => {
+export const acceptInvite = (socket, peer, setAcceptedCall, dialSignal) => {
   socket.current.on("acceptedCall", (signal) => {
+    dialSignal.unload();
     peer.signal(signal);
     setAcceptedCall(true);
   });
