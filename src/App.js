@@ -22,6 +22,7 @@ import { login, logout, setAuthHeaders } from "./utils/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
 import Profile from "./components/Profile";
+import { Howl, Howler } from "howler";
 
 function App() {
   const history = useHistory();
@@ -39,6 +40,12 @@ function App() {
   const userVideo = useRef();
   const partnerVideo = useRef();
   const myPeer = useRef();
+
+  const dialSignal = new Howl({
+    src: ['/sounds/lastMinuteBell.mp3'],
+    volume: 0.4,
+    loop: true,
+  })
 
   console.log({
     connected,
@@ -94,9 +101,10 @@ function App() {
     });
     setBuddy(id)
     callUser({ peer, socket, id, me });
+    dialSignal.play();
     broadcastVideo(peer, partnerVideo);
     peerError(peer, endCall);
-    acceptInvite(socket, peer, setAcceptedCall);
+    acceptInvite(socket, peer, setAcceptedCall, dialSignal);
     console.log("accepting call");
   };
 
