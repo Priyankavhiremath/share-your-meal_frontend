@@ -16,11 +16,18 @@ const UserCard = ({ user, handleInviteBuddy }) => {
         <Card.Body>
           <Card.Text>
             <p>
-              from {countries[user.country] && countries[user.country].name} and
-              speaking
-              {user.language &&
-                user.language.map((lang) => lang.label + ", ")}{" "}
-              <br /> is a talker/listener/both
+              Country:{" "}
+              <b>{countries[user.country] && countries[user.country].name}</b>{" "}
+              <br />
+              Language:{" "}
+              <b>
+                {user.language &&
+                  user.language.map(
+                    (lang, index) => (index > 0 ? ", " : "") + lang.label
+                  )}
+              </b>
+              <br /> Communication Style:{" "}
+              <b>{user.comStyle && user.comStyle}</b>
             </p>
           </Card.Text>
           <Button
