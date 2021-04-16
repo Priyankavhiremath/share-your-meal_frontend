@@ -129,11 +129,6 @@ function App() {
     socket.current.emit("rejectCall", 
     incomingCall.caller.id );
     } 
-    //else {
-    //  setIWasRejected(true);
-    //  dialSignal.unload();
-    //  socket.current.emit("endCall", buddy );
-    //}; 
   };
 
   const handleCallOngoing = () => {

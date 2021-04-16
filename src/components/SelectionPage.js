@@ -80,6 +80,9 @@ const SelectionPage = ({
               <Button className="rejectButton" onClick={()=> rejectCall()}>Sorry, no</Button>
             </div>
           )}
+          {userRejectsCall && (
+            <h4>`Sorry, {incomingCall.caller.name} has no time for you`</h4>
+          )}
           {!acceptedCall && (
             <BuddySelector
               connectedUsers={connectedUsers}
