@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import "../styles/UserCard.css";
 import { countries } from "country-data";
 
-const UserCard = ({ user, handleInviteBuddy }) => {
+const UserCard = ({ user, handleInviteBuddy, iWasRejected }) => {
   return (
     <div>
       <Card className="usercard" style={{ width: "20rem" }}>

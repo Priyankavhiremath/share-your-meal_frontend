@@ -5,7 +5,7 @@ import { Howl, Howler } from "howler";
 const callNotification = new Howl ({
   src: ['/sounds/doorBell.mp3'],
   volume: 0.4
-   })
+  })
 
 export const connectSocket = (socket) => {
   socket.current = io.connect(serverUrl);
@@ -25,9 +25,10 @@ export const displayUsers = (socket, setConnectedUsers) => {
   });
 };
 
-export const recevingCall = (socket, setIncomingCall) => {
-  socket.current.on("incomingCall", ({ from, signal }) => {
+export const recevingCall = (socket, setIncomingCall , setUserRejectsCall ) => {
+  socket.current.on("incomingCall", ({ from, signal}) => {
     console.log({ from });
+    setUserRejectsCall(false);
     callNotification.play();
     setIncomingCall({
       caller: from,

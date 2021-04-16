@@ -46,8 +46,8 @@ function App() {
   const myPeer = useRef();
 
   const dialSignal = new Howl({
-    src: ['/sounds/lastMinuteBell.mp3'],
-    volume: 0.4,
+    src: ['/sounds/nightCrickets.mp3'],
+    volume: 0.6,
     loop: true,
   })
 
@@ -63,7 +63,7 @@ function App() {
     //------------------------------------------------
     displayUsers(socket, setConnectedUsers);
     //------------------------------------------------
-    recevingCall(socket, setIncomingCall);
+    recevingCall(socket, setIncomingCall, setUserRejectsCall);
     //------------------------------------------------
     prepareDisconnection(socket, history);
   }, []);
@@ -103,12 +103,13 @@ function App() {
       initiator: true,
       trickle: false,
     });
-    setBuddy(id)
+    //setUserRejectsCall(false);
+    setBuddy(id);
     callUser({ peer, socket, id, me });
     dialSignal.play();
     broadcastVideo(peer, partnerVideo);
     peerError(peer, endCall);
-    rejectInvite(socket, setIWasRejected, dialSignal)
+    rejectInvite(socket, setIWasRejected, dialSignal);
     acceptInvite(socket, peer, setAcceptedCall, dialSignal);
     console.log("accepting call");
   };
@@ -128,6 +129,7 @@ function App() {
     setUserRejectsCall(true);
     socket.current.emit("rejectCall", 
     incomingCall.caller.id );
+    //setUserRejectsCall(false);
     } 
   };
 
@@ -199,11 +201,13 @@ function App() {
           partnerVideo={partnerVideo}
           callOngoing={callOngoing}
           userRejectsCall={userRejectsCall}
+          iWasRejected={iWasRejected}
           onAuth={handleAuthentication}
           onSetCredentials={handleSetCredentials}
           // component={Profile}
           onLogout={handleLogout}
           setMe={setMe}
+          buddy={buddy}
           />
       </div>
       <Footer />

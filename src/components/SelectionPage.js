@@ -7,6 +7,7 @@ import { countries } from "country-data";
 
 const SelectionPage = ({
   me,
+  buddy,
   connected,
   userVideo,
   connectedUsers,
@@ -16,9 +17,13 @@ const SelectionPage = ({
   acceptCall,
   rejectCall,
   userRejectsCall,
+  iWasRejected,
   onLogout,
 }) => {
-  const history = useHistory();
+  const history = useHistory(); 
+  let buddyName=""
+  if ( buddy && connectedUsers.length > 1) {buddyName = (connectedUsers.filter(user=>user.id===buddy))[0].name;}
+  
 
   useEffect(() => {
     if (acceptedCall) {
@@ -58,7 +63,7 @@ const SelectionPage = ({
             autoPlay
             name="userVideo"
           ></video>
-          {incomingCall && !acceptedCall && !userRejectsCall && (
+          { incomingCall && !acceptedCall && !userRejectsCall && (
             <div>
               <h4>
                 {incomingCall.caller.name} <br />
@@ -80,8 +85,8 @@ const SelectionPage = ({
               <Button className="rejectButton" onClick={()=> rejectCall()}>Sorry, no</Button>
             </div>
           )}
-          {userRejectsCall && (
-            <h4>`Sorry, {incomingCall.caller.name} has no time for you`</h4>
+          {iWasRejected && (
+            <h4>Sorry, {buddyName} has no time</h4>
           )}
           {!acceptedCall && (
             <BuddySelector
