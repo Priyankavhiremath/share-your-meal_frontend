@@ -10,6 +10,10 @@ import {
   recevingCall,
   acceptInvite,
   prepareDisconnection,
+  youJoined,
+  userJoined,
+  newMessage,
+  userDisconnected
 } from "./socket/socket";
 import {
   createPeer,
@@ -82,45 +86,6 @@ function App() {
     setMessage("");
   };
 
-  useEffect(() => {
-    if (me) {
-      socket.current = io.connect("http://localhost:8000/");
-      console.log(socket.current);
-
-      socket.current.emit("newUser", { name: me });
-
-      // socket.current.on("loginSuccess", ({ numberOfConnectedUsers, users }) => {
-      //   addMessage(`You have joined the chatroom!`, "Bot");
-      //   updateUsersNumber(numberOfConnectedUsers);
-      //   updateUsers(users);
-      // });
-
-      socket.current.on(
-        "userJoined",
-        ({ name }) => {
-          addMessage(`${name} has joined the chatroom!`, "Bot");
-          // updateUsersNumber(numberOfConnectedUsers);
-          // updateUsers(users);
-        }
-      );
-
-      socket.current.on("newMessage", ({ from, message, color }) => {
-        addMessage(message, from, color);
-      });
-
-      socket.current.on(
-        "userDisconnected",
-        ({ name }) => {
-          addMessage(`${name} has left the chatroom!`, "Bot");
-        //   updateUsersNumber(numberOfConnectedUsers);
-        //   updateUsers(users);
-        }
-      );
-    }
-  }, []);
-
-
-
   const dialSignal = new Howl({
     src: ['/sounds/lastMinuteBell.mp3'],
     volume: 0.4,
@@ -128,6 +93,7 @@ function App() {
   })
 
   useEffect(() => {
+    //------------------------------------------------
     connectSocket(socket);
     //----------------------------------------------
     displayMe(socket, setMe);
@@ -139,6 +105,12 @@ function App() {
     prepareDisconnection(socket, history);
     //------------------------------------------------
     setAuthHeaders() && history.push("/profile");
+
+    //-----------------CHAT-----------------------
+    youJoined(socket, addMessage)
+    userJoined(socket, addMessage)
+    newMessage(socket, addMessage)
+    userDisconnected(socket, addMessage)
   }, [history]);
 
   const handleChangeForm = (e) => {
