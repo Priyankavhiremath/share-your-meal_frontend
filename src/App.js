@@ -208,6 +208,7 @@ function App() {
   const handleLogout = () => {
     logout();
     history.push("/");
+    window.location.reload();
   };
 
   // useEffect(() => {
