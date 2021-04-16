@@ -1,11 +1,11 @@
 import io from "socket.io-client";
 import serverUrl from "../utils/serverUrl"
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 
 const callNotification = new Howl ({
-  src: ['/sounds/doorBell.mp3'],
+  src: ['/sounds/elevatorSound.mp3'],
   volume: 0.4
-   })
+  })
 
 export const connectSocket = (socket) => {
   socket.current = io.connect(serverUrl);
