@@ -10,6 +10,10 @@ import {
   recevingCall,
   acceptInvite,
   prepareDisconnection,
+  youJoined,
+  userJoined,
+  newMessage,
+  userDisconnected
 } from "./socket/socket";
 import {
   createPeer,
@@ -21,8 +25,9 @@ import {
 import { login, logout, setAuthHeaders } from "./utils/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
-import Profile from "./components/Profile";
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
+import { v4 as uuidv4 } from "uuid";
+import io from "socket.io-client";
 
 function App() {
   const history = useHistory();
@@ -35,11 +40,51 @@ function App() {
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
   const [buddy, setBuddy] = useState()
+
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
   
   const socket = useRef();
   const userVideo = useRef();
   const partnerVideo = useRef();
   const myPeer = useRef();
+
+  //---------------------------Chat logic----------------------------------------
+  // const updateUsersNumber = (number) => {
+  //   setChatroomInfo((prevState) => ({
+  //     ...prevState,
+  //     numberOfConnectedUsers: number,
+  //   }));
+  // };
+
+  // const updateUsers = (users) => {
+  //   setChatroomInfo((prevState) => ({ ...prevState, users }));
+  // };
+
+  const addMessage = (
+    text,
+    from,
+    color,
+    date = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  ) => {
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        id: uuidv4(),
+        text,
+        from,
+        date,
+        color,
+      },
+    ]);
+  };
+
+  const handleNewMessage = (e) => {
+    e.preventDefault();
+    addMessage(message, "me");
+    socket.current.emit("newMessage", message);
+    setMessage("");
+  };
 
   const dialSignal = new Howl({
     src: ['/sounds/lastMinuteBell.mp3'],
@@ -47,12 +92,8 @@ function App() {
     loop: true,
   })
 
-  console.log({
-    connected,
-    acceptedCall,
-  });
-
   useEffect(() => {
+    //------------------------------------------------
     connectSocket(socket);
     //----------------------------------------------
     displayMe(socket, setMe);
@@ -62,7 +103,15 @@ function App() {
     recevingCall(socket, setIncomingCall);
     //------------------------------------------------
     prepareDisconnection(socket, history);
-  }, []);
+    //------------------------------------------------
+    setAuthHeaders() && history.push("/profile");
+
+    //-----------------CHAT-----------------------
+    youJoined(socket, addMessage)
+    userJoined(socket, addMessage)
+    newMessage(socket, addMessage)
+    userDisconnected(socket, addMessage)
+  }, [history]);
 
   const handleChangeForm = (e) => {
     setMe((prevState) => {
@@ -161,9 +210,9 @@ function App() {
     history.push("/");
   };
 
-  useEffect(() => {
-    setAuthHeaders() && history.push("/profile");
-  }, [history]);
+  // useEffect(() => {
+  //   setAuthHeaders() && history.push("/profile");
+  // }, [history]);
 
   return (
     <div className="App background full-height">
@@ -185,9 +234,12 @@ function App() {
           callOngoing={callOngoing}
           onAuth={handleAuthentication}
           onSetCredentials={handleSetCredentials}
-          // component={Profile}
           onLogout={handleLogout}
           setMe={setMe}
+          message={message}
+          messages={messages}
+          handleNewMessage={handleNewMessage}
+          setMessage={setMessage}
           />
       </div>
       <Footer />

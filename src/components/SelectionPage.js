@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import BuddySelector from "../components/BuddySelector";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import CallNotification from "./CallNotification";
 import { countries } from "country-data";
+import ChatWindow from "./ChatWindow";
 
 const SelectionPage = ({
   me,
@@ -15,6 +15,10 @@ const SelectionPage = ({
   incomingCall,
   acceptCall,
   onLogout,
+  message,
+  messages,
+  handleNewMessage,
+  setMessage
 }) => {
   const history = useHistory();
 
@@ -29,7 +33,6 @@ const SelectionPage = ({
   return (
     <div>
       <h1>Hello {me.name}</h1>
-      {console.log(me)}
       <p>
         You are now online and available for calls. You can call a mealbuddy
         from the list below or{" "}
@@ -106,6 +109,16 @@ const SelectionPage = ({
             />
           )}
         </div>
+      )}
+      
+      {me && (
+        <ChatWindow
+          messages={messages}
+          message={message}
+          setMessage={setMessage}
+          onNewMessage={handleNewMessage}
+          connectedUsers={connectedUsers}
+        />
       )}
     </div>
   );
