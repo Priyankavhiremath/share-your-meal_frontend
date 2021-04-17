@@ -9,6 +9,7 @@ import {
   displayUsers,
   recevingCall,
   acceptInvite,
+  rejectInvite,
   prepareDisconnection,
   youJoined,
   userJoined,
@@ -37,6 +38,9 @@ function App() {
   const [callOngoing, setCallOngoing] = useState(false);
   const [incomingCall, setIncomingCall] = useState();
   const [acceptedCall, setAcceptedCall] = useState(false);
+  const [userRejectsCall,setUserRejectsCall] = useState(false);
+  const [iWasRejected, setIWasRejected] = useState(false);
+  
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
   const [buddy, setBuddy] = useState()
@@ -87,8 +91,8 @@ function App() {
   };
 
   const dialSignal = new Howl({
-    src: ['/sounds/lastMinuteBell.mp3'],
-    volume: 0.4,
+    src: ['/sounds/nightCrickets.mp3'],
+    volume: 0.6,
     loop: true,
   })
 
@@ -100,7 +104,7 @@ function App() {
     //------------------------------------------------
     displayUsers(socket, setConnectedUsers);
     //------------------------------------------------
-    recevingCall(socket, setIncomingCall);
+    recevingCall(socket, setIncomingCall, setUserRejectsCall);
     //------------------------------------------------
     prepareDisconnection(socket, history);
     //------------------------------------------------
@@ -148,11 +152,13 @@ function App() {
       initiator: true,
       trickle: false,
     });
-    setBuddy(id)
+    setIWasRejected(false);
+    setBuddy(id);
     callUser({ peer, socket, id, me });
     dialSignal.play();
     broadcastVideo(peer, partnerVideo);
     peerError(peer, endCall);
+    rejectInvite(socket, setIWasRejected, dialSignal);
     acceptInvite(socket, peer, setAcceptedCall, dialSignal);
     console.log("accepting call");
   };
@@ -164,6 +170,16 @@ function App() {
     broadcastVideo(peer, partnerVideo);
     peerError(peer, endCall);
     peer.signal(incomingCall.signal);
+  };
+
+  const rejectCall = () => {
+    if (incomingCall) {
+      console.log('I will reject the call');
+    setUserRejectsCall(true);
+    socket.current.emit("rejectCall", 
+    incomingCall.caller.id );
+    //setUserRejectsCall(false);
+    } 
   };
 
   const handleCallOngoing = () => {
@@ -208,6 +224,7 @@ function App() {
   const handleLogout = () => {
     logout();
     history.push("/");
+    window.location.reload();
   };
 
   // useEffect(() => {
@@ -224,6 +241,7 @@ function App() {
           onChangeForm={handleChangeForm}
           handleInviteBuddy={handleInviteBuddy}
           acceptCall={acceptCall}
+          rejectCall={rejectCall}
           endCall={endCall}
           connectedUsers={connectedUsers}
           acceptedCall={acceptedCall}
@@ -232,14 +250,20 @@ function App() {
           userVideo={userVideo}
           partnerVideo={partnerVideo}
           callOngoing={callOngoing}
+          userRejectsCall={userRejectsCall}
+          iWasRejected={iWasRejected}
           onAuth={handleAuthentication}
           onSetCredentials={handleSetCredentials}
           onLogout={handleLogout}
           setMe={setMe}
+
+          buddy={buddy}
+
           message={message}
           messages={messages}
           handleNewMessage={handleNewMessage}
           setMessage={setMessage}
+
           />
       </div>
       <Footer />

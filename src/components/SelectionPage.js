@@ -7,6 +7,7 @@ import ChatWindow from "./ChatWindow";
 
 const SelectionPage = ({
   me,
+  buddy,
   connected,
   userVideo,
   connectedUsers,
@@ -14,13 +15,20 @@ const SelectionPage = ({
   acceptedCall,
   incomingCall,
   acceptCall,
+  rejectCall,
+  userRejectsCall,
+  iWasRejected,
   onLogout,
   message,
   messages,
   handleNewMessage,
   setMessage
 }) => {
-  const history = useHistory();
+  const history = useHistory(); 
+  let buddyName=""
+  //if ( buddy && connectedUsers.length > 1) {buddyName = (connectedUsers.filter(user=>user.id===buddy))[0].name;}
+  let buddyNameArray = connectedUsers.filter(user=>user.id===buddy);
+  if (buddyNameArray.length >=1) {buddyName=buddyNameArray[0].name};
 
   useEffect(() => {
     if (acceptedCall) {
@@ -59,9 +67,8 @@ const SelectionPage = ({
             autoPlay
             name="userVideo"
           ></video>
-          {incomingCall && !acceptedCall && (
+          { incomingCall && !acceptedCall && !userRejectsCall && (
             <div>
-              {/*<CallNotification />*/}
               <h4>
                 <b>{incomingCall.caller.name}</b> is trying to call you!
               </h4>{" "}
@@ -98,8 +105,11 @@ const SelectionPage = ({
               </Button>
               <br />
               <br />
-              <Button className="rejectButton">Sorry, no</Button>
+              <Button className="rejectButton" onClick={()=> rejectCall()}>Sorry, no</Button>
             </div>
+          )}
+          { iWasRejected && buddyName && (
+            <h4>Sorry, {buddyName} has no time</h4>
           )}
           {!acceptedCall && (
             <BuddySelector
