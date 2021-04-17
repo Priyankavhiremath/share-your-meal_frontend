@@ -3,7 +3,7 @@ import serverUrl from "../utils/serverUrl"
 import { Howl } from "howler";
 
 const callNotification = new Howl ({
-  src: ['/sounds/elevatorSound.mp3'],
+  src: ['/sounds/doorBell.mp3'],
   volume: 0.4
   })
 
