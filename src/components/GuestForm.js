@@ -115,8 +115,8 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                     <input
                       type="radio"
                       className="ml-5 mr-1"
-                      checked={me.comStyle && me.comStyle === "both"}
-                      value="both"
+                      checked={me.comStyle && me.comStyle === "Both"}
+                      value="Both"
                       onChange={handleComStyle}
                     />
                     <label>Both </label>
