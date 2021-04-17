@@ -25,9 +25,10 @@ export const displayUsers = (socket, setConnectedUsers) => {
   });
 };
 
-export const recevingCall = (socket, setIncomingCall) => {
-  socket.current.on("incomingCall", ({ from, signal }) => {
+export const recevingCall = (socket, setIncomingCall , setUserRejectsCall ) => {
+  socket.current.on("incomingCall", ({ from, signal}) => {
     console.log({ from });
+    setUserRejectsCall(false);
     callNotification.play();
     setIncomingCall({
       caller: from,
@@ -41,6 +42,14 @@ export const acceptInvite = (socket, peer, setAcceptedCall, dialSignal) => {
     dialSignal.unload();
     peer.signal(signal);
     setAcceptedCall(true);
+  });
+};
+
+export const rejectInvite = (socket, setIWasRejected, dialSignal, buddy) => {
+  socket.current.on("rejectedCall", ()=>{
+    setIWasRejected(true);
+    dialSignal.unload();
+    socket.current.emit("endCall", buddy ); 
   });
 };
 
