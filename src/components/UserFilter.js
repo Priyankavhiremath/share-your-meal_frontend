@@ -3,7 +3,7 @@ import Select from "react-select";
 import { countries } from "country-data";
 import { Container, Row, Col } from "react-bootstrap";
 
-const UserFilter = ({ onConnect, onChangeForm, setMe, me }) => {
+const UserFilter = ({ filter, setFilter }) => {
   const countrylist = countries.all.map((country) => ({
     value: country.alpha2,
     label: country.name,
@@ -47,16 +47,14 @@ const UserFilter = ({ onConnect, onChangeForm, setMe, me }) => {
     },
   ];
 
-  const handleSetCountry = (code) => {
-    // setMe((prevState) => ({ ...prevState, country: code }));
+  const handleCountry = (e) => {
+    setFilter((prevState) => ({ ...prevState, country: e }));
   };
-
   const handleLanguage = (e) => {
-    // setMe((prevState) => ({ ...prevState, language: e }));
+    setFilter((prevState) => ({ ...prevState, language: e }));
   };
   const handleComStyle = (e) => {
-    // setMe((prevState) => ({ ...prevState, comStyle: e.target.value }));
-    // setRadio(e.target.value);
+    setFilter((prevState) => ({ ...prevState, comStyle: e }));
   };
 
   return (
@@ -65,7 +63,7 @@ const UserFilter = ({ onConnect, onChangeForm, setMe, me }) => {
         <Col className="form-group">
           <Select
             options={countrylist}
-            onChange={handleLanguage}
+            onChange={handleCountry}
             type="countries"
             id="countries"
             name="countries"
@@ -91,7 +89,7 @@ const UserFilter = ({ onConnect, onChangeForm, setMe, me }) => {
         <Col className="form-group ">
           <Select
             options={commStylelist}
-            onChange={handleLanguage}
+            onChange={handleComStyle}
             type="commStylelist"
             id="commStylelist"
             name="commStylelist"
