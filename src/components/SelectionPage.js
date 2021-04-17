@@ -22,8 +22,9 @@ const SelectionPage = ({
 }) => {
   const history = useHistory(); 
   let buddyName=""
-  if ( buddy && connectedUsers.length > 1) {buddyName = (connectedUsers.filter(user=>user.id===buddy))[0].name;}
-  
+  //if ( buddy && connectedUsers.length > 1) {buddyName = (connectedUsers.filter(user=>user.id===buddy))[0].name;}
+  let buddyNameArray = connectedUsers.filter(user=>user.id===buddy);
+  if (buddyNameArray.length >=1) {buddyName=buddyNameArray[0].name};
 
   useEffect(() => {
     if (acceptedCall) {
@@ -85,7 +86,7 @@ const SelectionPage = ({
               <Button className="rejectButton" onClick={()=> rejectCall()}>Sorry, no</Button>
             </div>
           )}
-          {iWasRejected && (
+          { iWasRejected && buddyName && (
             <h4>Sorry, {buddyName} has no time</h4>
           )}
           {!acceptedCall && (

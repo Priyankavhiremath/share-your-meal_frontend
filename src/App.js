@@ -103,7 +103,7 @@ function App() {
       initiator: true,
       trickle: false,
     });
-    //setUserRejectsCall(false);
+    setIWasRejected(false);
     setBuddy(id);
     callUser({ peer, socket, id, me });
     dialSignal.play();
@@ -175,6 +175,7 @@ function App() {
   const handleLogout = () => {
     logout();
     history.push("/");
+    window.location.reload();
   };
 
   useEffect(() => {
