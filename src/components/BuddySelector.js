@@ -1,18 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import UserCard from "./UserCard";
+import UserFilter from "./UserFilter";
 
 const BuddySelector = ({ connectedUsers, me, handleInviteBuddy }) => {
+  const [filter, setFilter] = useState({});
   return (
-    <Container >
+    <Container>
       <Row>
         <Col>
-      <h1>Pick your meal buddy</h1>
-      </Col>
+          <h1>Pick your meal buddy</h1>
+        </Col>
       </Row>
+      <UserFilter filter={filter} setFilter={setFilter} />
       <Row className="justify-content-center">
-        
-      
         {connectedUsers
           .filter((user) => user.id !== me.id)
           .map((user) => {
@@ -23,8 +24,6 @@ const BuddySelector = ({ connectedUsers, me, handleInviteBuddy }) => {
               </Fragment>
             );
           })}
-      
-      
       </Row>
     </Container>
   );
