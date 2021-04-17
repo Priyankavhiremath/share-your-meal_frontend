@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import BuddySelector from "../components/BuddySelector";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import CallNotification from "./CallNotification";
 import { countries } from "country-data";
+import ChatWindow from "./ChatWindow";
 
 const SelectionPage = ({
   me,
@@ -19,6 +19,10 @@ const SelectionPage = ({
   userRejectsCall,
   iWasRejected,
   onLogout,
+  message,
+  messages,
+  handleNewMessage,
+  setMessage
 }) => {
   const history = useHistory(); 
   let buddyName=""
@@ -37,7 +41,6 @@ const SelectionPage = ({
   return (
     <div>
       <h1>Hello {me.name}</h1>
-      {console.log(me)}
       <p>
         You are now online and available for calls. You can call a mealbuddy
         from the list below or{" "}
@@ -67,8 +70,28 @@ const SelectionPage = ({
           { incomingCall && !acceptedCall && !userRejectsCall && (
             <div>
               <h4>
-                {incomingCall.caller.name} <br />
-                from{" "}
+                <b>{incomingCall.caller.name}</b> is trying to call you!
+              </h4>{" "}
+              <p>
+                Country:{" "}
+                <b>
+                  {countries[incomingCall.caller.country] &&
+                    countries[incomingCall.caller.country].name}
+                </b>{" "}
+                <br />
+                Language:{" "}
+                <b>
+                  {incomingCall.caller.language &&
+                    incomingCall.caller.language.map(
+                      (lang, index) => (index > 0 ? ", " : "") + lang.label
+                    )}
+                </b>
+                <br /> Communication Style:{" "}
+                <b>
+                  {incomingCall.caller.comStyle && incomingCall.caller.comStyle}
+                </b>
+              </p>
+              {/* from{" "}
                 {countries[incomingCall.caller.country] &&
                   countries[incomingCall.caller.country].name}
                 <br />
@@ -76,8 +99,7 @@ const SelectionPage = ({
                 {incomingCall.caller.language &&
                   incomingCall.caller.language.map((lang) => lang.label + ", ")}
                 <br />
-                is trying to call you!
-              </h4>
+                is trying to call you! */}
               <Button className="acceptButton" onClick={() => acceptCall()}>
                 Yes please!
               </Button>
@@ -97,6 +119,16 @@ const SelectionPage = ({
             />
           )}
         </div>
+      )}
+      
+      {me && (
+        <ChatWindow
+          messages={messages}
+          message={message}
+          setMessage={setMessage}
+          onNewMessage={handleNewMessage}
+          connectedUsers={connectedUsers}
+        />
       )}
     </div>
   );

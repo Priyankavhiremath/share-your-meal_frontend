@@ -7,7 +7,7 @@ export const createPeer = (myPeer, { stream, initiator, trickle }) => {
         stream
       })
     
-       if(myPeer !== null) myPeer.current = peer;
+      if(myPeer !== null) myPeer.current = peer;
 
       return peer;
 };

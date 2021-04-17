@@ -7,7 +7,7 @@ const {
 } = process.env;
 
 if (NODE_ENV === "production") {
-  serverUrl = REACT_APP_BACKEND_API_HEROKU;
+  serverUrl = REACT_APP_BACKEND_API_LOCAL;
 } else {
   serverUrl = REACT_APP_BACKEND_API_LOCAL;
 }

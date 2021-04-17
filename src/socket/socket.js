@@ -1,9 +1,9 @@
 import io from "socket.io-client";
 import serverUrl from "../utils/serverUrl"
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 
 const callNotification = new Howl ({
-  src: ['/sounds/doorBell.mp3'],
+  src: ['/sounds/elevatorSound.mp3'],
   volume: 0.4
   })
 
@@ -61,3 +61,35 @@ export const prepareDisconnection = (socket, history) => {
     window.location.reload();
   });
 };
+
+export const userJoined = (socket, addMessage) => {
+  socket.current.on(
+    "userJoined",
+    ({ name }) => {
+      addMessage(`${name} has joined the chatroom!`, "Bot");
+    }
+  );
+}
+
+export const newMessage = (socket, addMessage) => {
+  socket.current.on("newMessage", ({ from, message, color }) => {
+    addMessage(message, from, color);
+  });
+}
+
+export const userDisconnected = (socket, addMessage) => {
+  socket.current.on(
+    "userDisconnected",
+    ({ name }) => {
+      console.log(name)
+      addMessage(`${name} has left the chatroom!`, "Bot");
+    });
+}
+
+export const youJoined = (socket, addMessage) => {
+  console.log('setting up you joined function')
+  socket.current.on("loginSuccess", () => {
+    console.log('logged in')
+    addMessage(`You have joined the chatroom!`, "Bot");
+  });
+}
