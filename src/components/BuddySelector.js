@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import UserCard from "./UserCard";
 import UserFilter from "./UserFilter";
 
-const BuddySelector = ({ connectedUsers, me, handleInviteBuddy }) => {
+const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingBuddy, cancelCall }) => {
   const [userFilter, setUserFilter] = useState({});
 
   const filterUser = (user) => {
@@ -76,7 +76,12 @@ const BuddySelector = ({ connectedUsers, me, handleInviteBuddy }) => {
           .map((user) => {
             return (
               <Fragment key={user.id}>
-                <UserCard user={user} handleInviteBuddy={handleInviteBuddy} />
+                <UserCard 
+                user={user} 
+                handleInviteBuddy={handleInviteBuddy} 
+                invitingBuddy={invitingBuddy} 
+                cancelCall={cancelCall} 
+                buddy={buddy}/>
                 <br />
               </Fragment>
             );

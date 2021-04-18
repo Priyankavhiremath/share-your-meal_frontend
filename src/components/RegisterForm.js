@@ -73,7 +73,7 @@ const RegisterPage = () => {
                     />
                   </div>
 
-                  <button type="submit" className="purple-button">
+                  <button type="submit" className="roundButton">
                     Register
                   </button>
                 </form>

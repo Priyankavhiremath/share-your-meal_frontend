@@ -49,7 +49,7 @@ export const rejectInvite = (socket, setIWasRejected, dialSignal, buddy) => {
   socket.current.on("rejectedCall", ()=>{
     setIWasRejected(true);
     dialSignal.unload();
-    socket.current.emit("endCall", buddy ); 
+    //socket.current.emit("endCall", buddy ); 
   });
 };
 

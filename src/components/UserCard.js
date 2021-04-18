@@ -5,8 +5,9 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "../styles/UserCard.css";
 import { countries } from "country-data";
+import BuddySelector from "./BuddySelector";
 
-const UserCard = ({ user, handleInviteBuddy, iWasRejected}) => {
+const UserCard = ({ user, buddy, handleInviteBuddy, iWasRejected, invitingBuddy, cancelCall }) => {
   return (
     <div>
       <Card className="usercard" style={{ width: "20rem" }}>
