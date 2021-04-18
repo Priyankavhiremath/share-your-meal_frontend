@@ -7,6 +7,7 @@ import { Howl, Howler } from "howler";
 const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall }) => {
   const [callProgress, setCallProgress] = useState(0);
   const [isLastMinute, setIsLastMinute] = useState(false);
+  const [areLastSeconds, setAreLastSeconds] = useState(false);
   
   const endSound = new Howl ({
     src: ['/sounds/endBellSoft.mp3'],
@@ -32,6 +33,11 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
     if (callProgress === 100)
     endCall();
   }, [callProgress]);
+//fade out
+  useEffect(()=>{
+    if (callProgress === 96)
+    {setAreLastSeconds(true)};
+  }, [callProgress]);
 
   useEffect(() => {
     onCallOngoing();
@@ -39,7 +45,17 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
 
   return (
     <div>
+      
       <ProgressBar className="custom-progress" variant="warning" now={callProgress} />
+      {areLastSeconds && (
+        <div className="fadeCover" style={{
+          width: "100%",
+          height: "100vh",
+          objectFit: "cover",
+          position: "absolute",
+          zIndex: 2,
+        }}></div>
+      )}
       <video
         style={{
           width: "15rem",

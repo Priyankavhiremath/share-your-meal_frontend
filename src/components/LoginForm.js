@@ -49,7 +49,7 @@ const LoginForm = ({ onAuth, onSetCredentials, onConnect, onChangeForm }) => {
                   <button
                     onClick={(e) => handleSubmit(e)}
                     type="submit"
-                    className="purple-button"
+                    className="roundButton"
                   >
                     Login
                   </button>

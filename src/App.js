@@ -26,7 +26,7 @@ import {
 import { login, logout, setAuthHeaders } from "./utils/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
-import { Howl } from "howler";
+import { Howl, Howler } from "howler";
 import { v4 as uuidv4 } from "uuid";
 import io from "socket.io-client";
 
@@ -40,7 +40,7 @@ function App() {
   const [acceptedCall, setAcceptedCall] = useState(false);
   const [userRejectsCall,setUserRejectsCall] = useState(false);
   const [iWasRejected, setIWasRejected] = useState(false);
-  
+  const [invitingBuddy, setInvitingBuddy] = useState(false);
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
   const [buddy, setBuddy] = useState()
@@ -95,6 +95,12 @@ function App() {
     volume: 0.6,
     loop: true,
   })
+
+  //const dialSignal2 = new Howl({
+  //  src: ['/sounds/elevatorSound.mp3'],
+  //  volume: 0.6,
+  //  loop: true,
+  //})
 
   useEffect(() => {
     //------------------------------------------------
@@ -154,6 +160,7 @@ function App() {
     });
     setIWasRejected(false);
     setBuddy(id);
+    setInvitingBuddy(true);
     callUser({ peer, socket, id, me });
     dialSignal.play();
     broadcastVideo(peer, partnerVideo);
@@ -161,6 +168,15 @@ function App() {
     rejectInvite(socket, setIWasRejected, dialSignal);
     acceptInvite(socket, peer, setAcceptedCall, dialSignal);
     console.log("accepting call");
+  };
+
+  const cancelCall = () =>{
+    //dialSignal2.play();
+    myPeer.current && myPeer.current.destroy();
+    socket.current.emit("cancelCall", buddy );
+    dialSignal.unload();
+    setInvitingBuddy(false);
+    console.log("trying to cancel")
   };
 
   const acceptCall = () => {
@@ -240,6 +256,7 @@ function App() {
           onConnect={handleConnect}
           onChangeForm={handleChangeForm}
           handleInviteBuddy={handleInviteBuddy}
+          cancelCall={cancelCall}
           acceptCall={acceptCall}
           rejectCall={rejectCall}
           endCall={endCall}
@@ -258,7 +275,7 @@ function App() {
           setMe={setMe}
 
           buddy={buddy}
-
+          invitingBuddy={invitingBuddy}
           message={message}
           messages={messages}
           handleNewMessage={handleNewMessage}

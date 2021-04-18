@@ -2,16 +2,19 @@ import React, { useEffect } from "react";
 import BuddySelector from "../components/BuddySelector";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import CallNotification from "./CallNotification";
 import { countries } from "country-data";
 import ChatWindow from "./ChatWindow";
 
 const SelectionPage = ({
   me,
   buddy,
+  invitingBuddy,
   connected,
   userVideo,
   connectedUsers,
   handleInviteBuddy,
+  cancelCall,
   acceptedCall,
   incomingCall,
   acceptCall,
@@ -41,11 +44,12 @@ const SelectionPage = ({
   return (
     <div>
       <h1>Hello {me.name}</h1>
+      {console.log(me)}
       <p>
         You are now online and available for calls. You can call a mealbuddy
         from the list below or{" "}
         <Button className="roundButton" onClick={onLogout}>
-          Logout
+          Disconnect
         </Button>
         <br />
       </p>
@@ -70,28 +74,8 @@ const SelectionPage = ({
           { incomingCall && !acceptedCall && !userRejectsCall && (
             <div>
               <h4>
-                <b>{incomingCall.caller.name}</b> is trying to call you!
-              </h4>{" "}
-              <p>
-                Country:{" "}
-                <b>
-                  {countries[incomingCall.caller.country] &&
-                    countries[incomingCall.caller.country].name}
-                </b>{" "}
-                <br />
-                Language:{" "}
-                <b>
-                  {incomingCall.caller.language &&
-                    incomingCall.caller.language.map(
-                      (lang, index) => (index > 0 ? ", " : "") + lang.label
-                    )}
-                </b>
-                <br /> Communication Style:{" "}
-                <b>
-                  {incomingCall.caller.comStyle && incomingCall.caller.comStyle}
-                </b>
-              </p>
-              {/* from{" "}
+                {incomingCall.caller.name} <br />
+                from{" "}
                 {countries[incomingCall.caller.country] &&
                   countries[incomingCall.caller.country].name}
                 <br />
@@ -99,13 +83,23 @@ const SelectionPage = ({
                 {incomingCall.caller.language &&
                   incomingCall.caller.language.map((lang) => lang.label + ", ")}
                 <br />
-                is trying to call you! */}
+                is trying to call you!
+              </h4>
               <Button className="acceptButton" onClick={() => acceptCall()}>
                 Yes please!
               </Button>
               <br />
               <br />
               <Button className="rejectButton" onClick={()=> rejectCall()}>Sorry, no</Button>
+            </div>
+          )}
+          { invitingBuddy && buddy && (
+            <div>
+              <h4>Waiting for {buddyName}</h4>
+              <Button 
+              className="roundButton" 
+              onClick={()=>cancelCall()}
+              >Cancel</Button>
             </div>
           )}
           { iWasRejected && buddyName && (
@@ -116,6 +110,9 @@ const SelectionPage = ({
               connectedUsers={connectedUsers}
               me={me}
               handleInviteBuddy={handleInviteBuddy}
+              invitingBuddy={invitingBuddy}
+              cancelCall={cancelCall}
+              buddy={buddy}
             />
           )}
         </div>

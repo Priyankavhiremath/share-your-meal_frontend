@@ -122,7 +122,7 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                     <label>Both </label>
                   </div>
 
-                  <button type="submit" className="purple-button text-centre">
+                  <button type="submit" className="roundButton text-centre">
                     Connect
                   </button>
                 </div>
