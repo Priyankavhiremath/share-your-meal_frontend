@@ -151,7 +151,9 @@ function App() {
     console.log("accepting call");
   };
 
+
   const cancelCall = () =>{
+
     myPeer.current && myPeer.current.destroy();
     socket.current.emit("cancelCall", buddy );
     dialSignal.unload();
