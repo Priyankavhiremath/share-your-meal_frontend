@@ -10,7 +10,7 @@ const ChatWindow = ({
     connectedUsers,
 }) => {
     return (
-        <div className="iphone">
+        <div className="iphone shadow">
         <div className="around">
             <div className="responsive-html5-chat">
             <form className="chat" onSubmit={onNewMessage}>
@@ -31,6 +31,7 @@ const ChatWindow = ({
                     );
                 })}
                 </div>
+                
                 <input
                 type="text"
                 value={message}
@@ -38,6 +39,7 @@ const ChatWindow = ({
                 placeholder="Your message"
                 />
                 <input type="submit" value="Send" />
+                
             </form>
             </div>
         </div>

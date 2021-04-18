@@ -225,4 +225,12 @@ p {
 
 .selectAndChat {
   padding-top: 2rem;
+  padding-right: 4rem;
+  justify-content: space-around !important;
+}
+
+.videoSection {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background-color: #c6e9d0;
 }
