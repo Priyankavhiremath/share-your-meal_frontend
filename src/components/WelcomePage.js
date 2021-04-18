@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Fade, Zoom } from "react-awesome-reveal";
 import Footer from "./Footer"
+import Button from "react-bootstrap/Button";
 
 const WelcomePage = () => {
   return (
@@ -18,12 +19,12 @@ const WelcomePage = () => {
 
         
           <div className="col-sm-3 py-5 mx-auto">
-            <div className="guest-div shadow-lg p-3 mb-5 bg-white rounded">
-              <h5 className="mt-2">Jump in as a guest</h5>
-              <Link
-                to="/guest"
-                className="btn mt-4 p-4 textColor fontFamily guest-button"
-              >Start
+            <div className="guest-div shadow-lg  mb-5 bg-white rounded">
+              <h5 className="mt-2 pt-3">Jump in as a guest</h5>
+              <Link to="/guest">
+                <Button className="btn mt-2 pb-2 textColor fontFamily shadow guest-button">
+                  Start
+                </Button>
               </Link>
             </div>
           </div>
@@ -44,7 +45,7 @@ const WelcomePage = () => {
                 <h2 className=" text-center p-2 m-2">
                   What is <span className="logo">SYM</span>?
                 </h2>
-                <p className=" pr-5 pl-5">
+                <p className="aboutSYM pr-5 pl-5">
                     Eating is often more enjoyable with a bit of company, whether
                     you like to discuss over your plates or just want to munch along
                     in silence. However, modern work settings and lifestyles can

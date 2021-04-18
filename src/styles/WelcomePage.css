@@ -22,21 +22,34 @@
   color: #783fbd;
 }
 
+.link-style:hover {
+  color: #f3a108 !important;
+}
+
 .guest-div {
-  min-height: 18vh;
+  min-height: 19vh;
+  padding-bottom: 2rem !important;
 }
 
 .guest-button {
+  height: 8rem;
+  width: 8rem;
   padding: 0.3rem 0.6rem 0.3rem 0.6rem !important;
   border-radius: 50% !important;
+  align-items: center;
+  text-align: center !important;
+  font-size: 2rem !important;
   color: blanchedalmond;
+
   background-image: linear-gradient(#783fbd, #583d7a);
   border-color: #583d7a !important;
 }
 
 .guest-button:hover {
-  border-color: rgb(1, 116, 116) !important;
-  background-image: linear-gradient(rgb(12, 173, 173), rgb(1, 116, 116));
+  /*border-color: rgb(1, 116, 116) !important;
+  background-image: linear-gradient(rgb(12, 173, 173), rgb(1, 116, 116));*/
+  background-image: linear-gradient(#f3a108, #fc8434);
+  border-color: #fc8434 !important;
 }
 
 .guest-button.textColor {
@@ -49,4 +62,9 @@
 
 .guest-button.fontFamily {
   font-family: "Mitr", sans-serif;
+}
+
+.aboutSYM {
+  font-size: 1rem;
+  text-align: start;
 }
