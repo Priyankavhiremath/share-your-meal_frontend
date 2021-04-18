@@ -30,6 +30,26 @@ const UserFilter = ({ filter, setFilter }) => {
       value: 5,
       label: "Japanese",
     },
+    {
+      value: 6,
+      label: "Mandarin Chinese",
+    },
+    {
+      value: 7,
+      label: "Hindi",
+    },
+    {
+      value: 8,
+      label: "Arabic",
+    },
+    {
+      value: 9,
+      label: "Russian",
+    },
+    {
+      value: 10,
+      label: "Portuguese",
+    },
   ];
 
   const commStylelist = [

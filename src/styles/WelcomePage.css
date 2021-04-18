@@ -5,30 +5,48 @@
 }
 
 .logo {
-  color: teal;
   font-family: "Mitr", sans-serif;
 }
 
 .mediumtext {
-  color: rgb(247, 231, 203);
+  color: rgb(255, 242, 220);
   font-family: Roboto;
   font-size: 1.5rem;
 }
-
 
 .main-div {
   min-height: 92vh;
 }
 
-.roundButton {
+.link-style {
+  color: #783fbd;
+}
+
+.guest-div {
+  min-height: 18vh;
+}
+
+.guest-button {
   padding: 0.3rem 0.6rem 0.3rem 0.6rem !important;
-  border-radius: 1rem !important;
+  border-radius: 50% !important;
   color: blanchedalmond;
   background-image: linear-gradient(#783fbd, #583d7a);
   border-color: #583d7a !important;
 }
 
-.roundButton:hover {
+.guest-button:hover {
   border-color: rgb(1, 116, 116) !important;
   background-image: linear-gradient(rgb(12, 173, 173), rgb(1, 116, 116));
+}
+
+.guest-button.textColor {
+  color: rgb(247, 231, 203);
+}
+
+.guest-button.textColor:hover {
+  color: rgb(247, 231, 203);
+}
+
+.guest-button.fontFamily {
+  font-family: "Mitr", sans-serif;
 }

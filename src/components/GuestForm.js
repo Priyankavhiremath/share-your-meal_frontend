@@ -43,13 +43,13 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
 
   return (
     <div>
-      <div className="main-div">
+      <div className="main-div mt-4">
         <h1>Enter your info</h1>
         <form className="text-center" onSubmit={onConnect}>
-          <div className="row mt-0">
+          <div className="row">
             <div className="col-md-6 m-auto">
-              <div className="card animated zoomIn mt-5">
-                <div className="card card-body bg-light border border-0 shadow m-5">
+              <div className="card animated zoomIn mt-5 shadow-lg">
+                <div className="card card-body border border-0 m-4">
                   <h1 className="text-center mb-3">Guest info</h1>
 
                   <div>
@@ -86,8 +86,8 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                         isMulti
                       />
                     </div>
-                    <h5>Communication Style</h5>
-                    <div className="form-group">
+                    <h5 className="pt-4">Communication Style</h5>
+                    <div className="form-group pb-3">
                       {/* <br /> */}
                       <input
                         type="radio"
