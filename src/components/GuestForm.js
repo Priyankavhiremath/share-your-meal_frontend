@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactFlagsSelect from "react-flags-select";
 import Select from "react-select";
 
@@ -50,7 +50,6 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
 
                 <div>
                   <div className="form-group">
-                    {/* <label htmlFor="name"></label> */}
                     <input
                       type="text"
                       id="name"
@@ -72,7 +71,6 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                   />
                   <br />
                   <div className="form-group">
-                    {/* <label htmlFor="language">Language</label> */}
                     <Select
                       options={languagelist}
                       onChange={handleLanguage}
@@ -86,13 +84,6 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                   </div>
                   <h5>Communication Style</h5>
                   <div className="form-group">
-                    {/* <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      className="form-control"
-                      placeholder="Enter Name"
-                    /> */}
                     {/* <br /> */}
                     <input
                       type="radio"

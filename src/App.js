@@ -26,9 +26,8 @@ import {
 import { login, logout, setAuthHeaders } from "./utils/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 import { v4 as uuidv4 } from "uuid";
-import io from "socket.io-client";
 
 function App() {
   const history = useHistory();
@@ -44,7 +43,6 @@ function App() {
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
   const [buddy, setBuddy] = useState()
-
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   
@@ -54,17 +52,6 @@ function App() {
   const myPeer = useRef();
 
   //---------------------------Chat logic----------------------------------------
-  // const updateUsersNumber = (number) => {
-  //   setChatroomInfo((prevState) => ({
-  //     ...prevState,
-  //     numberOfConnectedUsers: number,
-  //   }));
-  // };
-
-  // const updateUsers = (users) => {
-  //   setChatroomInfo((prevState) => ({ ...prevState, users }));
-  // };
-
   const addMessage = (
     text,
     from,
@@ -95,12 +82,6 @@ function App() {
     volume: 0.6,
     loop: true,
   })
-
-  //const dialSignal2 = new Howl({
-  //  src: ['/sounds/elevatorSound.mp3'],
-  //  volume: 0.6,
-  //  loop: true,
-  //})
 
   useEffect(() => {
     //------------------------------------------------
@@ -170,8 +151,9 @@ function App() {
     console.log("accepting call");
   };
 
- const cancelCall = () =>{
-    //dialSignal2.play();
+
+  const cancelCall = () =>{
+
     myPeer.current && myPeer.current.destroy();
     socket.current.emit("cancelCall", buddy );
     dialSignal.unload();
@@ -194,7 +176,6 @@ function App() {
     setUserRejectsCall(true);
     socket.current.emit("rejectCall", 
     incomingCall.caller.id );
-    //setUserRejectsCall(false);
     } 
   };
 
@@ -243,10 +224,6 @@ function App() {
     window.location.reload();
   };
 
-  // useEffect(() => {
-  //   setAuthHeaders() && history.push("/profile");
-  // }, [history]);
-
   return (
     <div className="App background full-height">
       <div className="main">
@@ -273,14 +250,12 @@ function App() {
           onSetCredentials={handleSetCredentials}
           onLogout={handleLogout}
           setMe={setMe}
-
           buddy={buddy}
           invitingBuddy={invitingBuddy}
           message={message}
           messages={messages}
           handleNewMessage={handleNewMessage}
           setMessage={setMessage}
-
           />
       </div>
       <Footer />
