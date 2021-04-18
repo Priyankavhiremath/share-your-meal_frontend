@@ -53,8 +53,10 @@ const SelectionPage = ({
           </Button>
           <br />
         </p>
+        
         {connected && (
           <div>
+            <div className="videoSection shadow" >
             <video
               style={{
                 width: "15rem",
@@ -71,6 +73,7 @@ const SelectionPage = ({
               autoPlay
               name="userVideo"
             ></video>
+
             { incomingCall && !acceptedCall && !userRejectsCall && (
               <div>
                 <h4>
@@ -85,12 +88,12 @@ const SelectionPage = ({
                   <br />
                   is trying to call you!
                 </h4>
-                <Button className="acceptButton" onClick={() => acceptCall()}>
+                <Button className="acceptButton shadow" onClick={() => acceptCall()}>
                   Yes please!
                 </Button>
                 <br />
                 <br />
-                <Button className="rejectButton" onClick={()=> rejectCall()}>Sorry, no</Button>
+                <Button className="rejectButton shadow" onClick={()=> rejectCall()}>Sorry, no</Button>
               </div>
             )}
             { invitingBuddy && buddy && (
@@ -105,8 +108,8 @@ const SelectionPage = ({
             { iWasRejected && buddyName && (
               <h4>Sorry, {buddyName} has no time</h4>
             )}
-
-            <Container className="d-flex selectAndChat">
+</div>
+            <Container fluid className="selectAndChat">
               <Row className="justify-content-between">
                 <Col className="buddySelection" md={9}>
               
