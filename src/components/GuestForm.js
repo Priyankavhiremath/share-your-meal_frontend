@@ -3,7 +3,7 @@ import ReactFlagsSelect from "react-flags-select";
 import Select from "react-select";
 import Footer from "./Footer";
 import { Button } from "react-bootstrap";
-import "../styles/GuestForm.css"
+import "../styles/GuestForm.css";
 
 const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
   const languagelist = [
@@ -26,6 +26,26 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
     {
       value: 5,
       label: "Japanese",
+    },
+    {
+      value: 6,
+      label: "Mandarin Chinese",
+    },
+    {
+      value: 7,
+      label: "Hindi",
+    },
+    {
+      value: 8,
+      label: "Arabic",
+    },
+    {
+      value: 9,
+      label: "Russian",
+    },
+    {
+      value: 10,
+      label: "Portuguese",
     },
   ];
 
@@ -116,7 +136,10 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                       />
                       <label>Both </label>
                     </div>
-                    <Button className="roundButton mr-md-4" href="/"> Go back </Button>
+                    <Button className="roundButton mr-md-4" href="/">
+                      {" "}
+                      Go back{" "}
+                    </Button>
                     <Button type="submit" className="roundButton ml-md-4">
                       Connect
                     </Button>
