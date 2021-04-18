@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HangUp from "../images/hangup.png";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import LastMinuteMessage from "./LastMinuteMessage";
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 
 const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall }) => {
   const [callProgress, setCallProgress] = useState(0);
@@ -24,7 +24,7 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
   useEffect(()=>{
     if (callProgress === 50 )
     {setIsLastMinute(true);
-     endSound.play();
+    endSound.play();
     };
   }, [callProgress]);
 
@@ -77,7 +77,7 @@ const CallPage = ({ partnerVideo, userVideo, onCallOngoing, callOngoing, endCall
       ></video>
       { isLastMinute && (
         <div>
-         <LastMinuteMessage />
+          <LastMinuteMessage />
         </div>
       )}
       

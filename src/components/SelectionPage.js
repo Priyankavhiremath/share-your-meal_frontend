@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import BuddySelector from "../components/BuddySelector";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import CallNotification from "./CallNotification";
 import { countries } from "country-data";
 import ChatWindow from "./ChatWindow";
 
@@ -29,7 +28,6 @@ const SelectionPage = ({
 }) => {
   const history = useHistory(); 
   let buddyName=""
-  //if ( buddy && connectedUsers.length > 1) {buddyName = (connectedUsers.filter(user=>user.id===buddy))[0].name;}
   let buddyNameArray = connectedUsers.filter(user=>user.id===buddy);
   if (buddyNameArray.length >=1) {buddyName=buddyNameArray[0].name};
 

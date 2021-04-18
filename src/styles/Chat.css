@@ -73,7 +73,7 @@
     }
     
     form.chat .message:hover span {
-        opacity: 1;
+        opacity: 1; 
     }
     
     form.chat .myMessage,
@@ -101,7 +101,7 @@
         bottom: -2px;
         right: -8px;
         height: 19px;
-        border-right: 20px solid rgb(231, 225, 225);
+        border-right: 20px solid #faa07d;
         border-bottom-left-radius: 16px 14px;
         transform: translate(0, -2px);
         border-bottom-left-radius: 15px 0px\9;
@@ -116,7 +116,7 @@
         right: -42px;
         width: 12px;
         height: 20px;
-        background: transparent;
+        background: #e7e1e1;
         border-bottom-left-radius: 10px;
         transform: translate(-30px, -2px);
     }
@@ -150,7 +150,7 @@
         left: 4px;
         width: 26px;
         height: 20px;
-        background: transparent;
+        background: #e7e1e1;;
         border-bottom-right-radius: 10px;
         transform: translate(-30px, -2px);
     }
