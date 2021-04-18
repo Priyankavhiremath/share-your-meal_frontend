@@ -59,8 +59,11 @@ const UserFilter = ({ filter, setFilter }) => {
 
   return (
     <Container>
+      <Row className="justify-content-center">
+        <h4>filter by</h4>
+      </Row>
       <Row>
-        <Col className="form-group">
+        <Col className="form-group" md={4}>
           <Select
             options={countrylist}
             onChange={handleCountry}
@@ -68,12 +71,12 @@ const UserFilter = ({ filter, setFilter }) => {
             id="countries"
             name="countries"
             className="text-left"
-            placeholder="Filter Countries"
+            placeholder="Country"
             isMulti
           />
         </Col>
 
-        <Col className="form-group">
+        <Col className="form-group" md={4}>
           <Select
             options={languagelist}
             onChange={handleLanguage}
@@ -81,12 +84,12 @@ const UserFilter = ({ filter, setFilter }) => {
             id="languages"
             name="languages"
             className="text-left"
-            placeholder="Filter Languages"
+            placeholder="Languages"
             isMulti
           />
         </Col>
 
-        <Col className="form-group ">
+        <Col className="form-group " md={4}>
           <Select
             options={commStylelist}
             onChange={handleComStyle}
@@ -94,7 +97,7 @@ const UserFilter = ({ filter, setFilter }) => {
             id="commStylelist"
             name="commStylelist"
             className="text-left"
-            placeholder="Filter Communication Style"
+            placeholder="Communication Style"
             isMulti
           />
         </Col>

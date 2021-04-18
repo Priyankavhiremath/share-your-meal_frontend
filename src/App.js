@@ -170,7 +170,7 @@ function App() {
     console.log("accepting call");
   };
 
-  const cancelCall = () =>{
+ const cancelCall = () =>{
     //dialSignal2.play();
     myPeer.current && myPeer.current.destroy();
     socket.current.emit("cancelCall", buddy );

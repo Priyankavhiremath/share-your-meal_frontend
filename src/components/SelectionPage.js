@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import BuddySelector from "../components/BuddySelector";
 import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Container, Row, Col } from "react-bootstrap";
 import CallNotification from "./CallNotification";
 import { countries } from "country-data";
 import ChatWindow from "./ChatWindow";
@@ -101,11 +101,15 @@ const SelectionPage = ({
               onClick={()=>cancelCall()}
               >Cancel</Button>
             </div>
-          )}
+         )}
           { iWasRejected && buddyName && (
             <h4>Sorry, {buddyName} has no time</h4>
           )}
-          {!acceptedCall && (
+<Container className="d-flex selectAndChat">
+  <Row className="justify-content-between">
+    <Col className="buddySelection" md={9}>
+      
+      {!acceptedCall && (
             <BuddySelector
               connectedUsers={connectedUsers}
               me={me}
@@ -115,18 +119,30 @@ const SelectionPage = ({
               buddy={buddy}
             />
           )}
+         
+    </Col>
+    <Col className="chatContainer " md={3}>
+      <div> <h1>Chat with others</h1></div>
+     
+      {me && (
+          <ChatWindow
+            messages={messages}
+            message={message}
+            setMessage={setMessage}
+            onNewMessage={handleNewMessage}
+            connectedUsers={connectedUsers}
+          />
+        )}
+    </Col>
+  </Row>
+</Container>
+
+
+           
+      
         </div>
       )}
-      
-      {me && (
-        <ChatWindow
-          messages={messages}
-          message={message}
-          setMessage={setMessage}
-          onNewMessage={handleNewMessage}
-          connectedUsers={connectedUsers}
-        />
-      )}
+     
     </div>
   );
 };
