@@ -3,12 +3,8 @@
   min-width: 300px;
   float: left;
 }
-.background {
-  background-color: #7cd795;
-}
 
 .logo {
-  /*color: #583d7a;*/
   color: teal;
   font-family: "Mitr", sans-serif;
 }
@@ -18,6 +14,21 @@
   font-family: Roboto;
   font-size: 1.5rem;
 }
-/* .bottom-box {
-  background-color: whitesmoke;
-} */
+
+
+.main-div {
+  min-height: 92vh;
+}
+
+.roundButton {
+  padding: 0.3rem 0.6rem 0.3rem 0.6rem !important;
+  border-radius: 1rem !important;
+  color: blanchedalmond;
+  background-image: linear-gradient(#783fbd, #583d7a);
+  border-color: #583d7a !important;
+}
+
+.roundButton:hover {
+  border-color: rgb(1, 116, 116) !important;
+  background-image: linear-gradient(rgb(12, 173, 173), rgb(1, 116, 116));
+}
