@@ -108,7 +108,7 @@ const SelectionPage = ({
             { iWasRejected && buddyName && (
               <h4>Sorry, {buddyName} has no time</h4>
             )}
-</div>
+            </div>
             <Container fluid className="selectAndChat">
               <Row className="justify-content-between">
                 <Col className="buddySelection" md={9}>
