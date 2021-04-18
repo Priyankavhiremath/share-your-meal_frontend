@@ -10,7 +10,10 @@ function Footer() {
       <a href="https://github.com/Priyankavhiremath/share-your-meal_frontend">
         <i className="fab fa-github text-black-50 icon-large"></i>
       </a>
-      <Link className="text-black-50" to="/about">
+      <Link
+        className="text-black-50"
+        to="/"
+      >
         About Us
       </Link>
     </Navbar>
