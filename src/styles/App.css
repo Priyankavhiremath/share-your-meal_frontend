@@ -235,3 +235,9 @@ p {
   padding-bottom: 2rem;
   background-color: #c6e9d0;
 }
+
+.formEmptyAlert {
+  color: rgb(194, 8, 8);
+  padding-top: 0;
+  padding-bottom: 1rem;
+}
