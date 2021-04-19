@@ -44,6 +44,7 @@ function App() {
   const [buddy, setBuddy] = useState()
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const [formDemandsInfo, setFormDemandsInfo] = useState(false);
   
   const socket = useRef();
   const userVideo = useRef();
@@ -126,10 +127,17 @@ function App() {
 
   const handleConnect = (event) => {
     event.preventDefault();
+    //prevent empty form
+   // console.log(me);
+    if (!me.comStyle || !me.country || !me.language || !me.name)
+    {setFormDemandsInfo(true)}
+    else
+    {setFormDemandsInfo(false);
     socket.current.emit("newGuestUser", me);
     setConnected(true);
-    history.push("/select");
-  };
+    history.push("/select");}
+    
+  }
 
   const handleInviteBuddy = (id) => {
     // Send Offer To Start Connection
@@ -229,6 +237,7 @@ function App() {
           connected={connected}
           onConnect={handleConnect}
           onChangeForm={handleChangeForm}
+          formDemandsInfo={formDemandsInfo}
           handleInviteBuddy={handleInviteBuddy}
           cancelCall={cancelCall}
           acceptCall={acceptCall}
