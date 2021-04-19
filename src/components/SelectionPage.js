@@ -15,7 +15,6 @@ const SelectionPage = ({
   userVideo,
   connectedUsers,
   handleInviteBuddy,
-  cancelCall,
   acceptedCall,
   incomingCall,
   acceptCall,
@@ -96,15 +95,7 @@ const SelectionPage = ({
                 <Button className="rejectButton shadow" onClick={()=> rejectCall()}>Sorry, no</Button>
               </div>
             )}
-            { invitingBuddy && buddy && (
-              <div>
-                <h4>Waiting for {buddyName}</h4>
-                <Button 
-                className="roundButton" 
-                onClick={()=>cancelCall()}
-                >Cancel</Button>
-              </div>
-              )}
+            
             { iWasRejected && buddyName && (
               <h4>Sorry, {buddyName} has no time</h4>
             )}
@@ -119,7 +110,6 @@ const SelectionPage = ({
                     me={me}
                     handleInviteBuddy={handleInviteBuddy}
                     invitingBuddy={invitingBuddy}
-                    cancelCall={cancelCall}
                     buddy={buddy}
                   />
                 )}

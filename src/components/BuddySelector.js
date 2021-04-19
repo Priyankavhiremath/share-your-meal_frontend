@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import UserCard from "./UserCard";
 import UserFilter from "./UserFilter";
 
-const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingBuddy, cancelCall }) => {
+const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingBuddy }) => {
   const [userFilter, setUserFilter] = useState({});
 
   const filterUser = (user) => {
@@ -62,7 +62,7 @@ const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingB
   };
 //get 6 unique random users from connectedUsers in new array randomUsers
 
-const connectedCopy = connectedUsers;
+/*const connectedCopy = connectedUsers;
 const shuffle = (array)=> {
   let oldElement;
   for (let i = array.length - 1; i > 0; i--) {
@@ -74,7 +74,7 @@ const shuffle = (array)=> {
   return array;
 } 
 const connectedShuffle = shuffle(connectedCopy);
- console.log(connectedShuffle); 
+ console.log(connectedShuffle); */
 
   return (
     <Container>
@@ -85,7 +85,7 @@ const connectedShuffle = shuffle(connectedCopy);
       </Row>
       <UserFilter filter={userFilter} setFilter={setUserFilter} />
       <Row className="justify-content-center">
-        {/*connectedUsers*/connectedShuffle
+        {connectedUsers/*connectedShuffle*/
           .filter((user) => user.id !== me.id)
           .filter((user) => filterUser(user))
           .slice(0,6)
@@ -96,7 +96,6 @@ const connectedShuffle = shuffle(connectedCopy);
                 user={user} 
                 handleInviteBuddy={handleInviteBuddy} 
                 invitingBuddy={invitingBuddy} 
-                cancelCall={cancelCall} 
                 buddy={buddy}/>
                 <br />
               </Fragment>
