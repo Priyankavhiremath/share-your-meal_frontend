@@ -120,7 +120,7 @@ const SelectionPage = ({
                             invitingBuddy={invitingBuddy}
                             buddy={buddy}
                         />
-                     )}
+                    )}
               </Col>
               <Col className="chatContainer" lg={4}>
                 {me && (
@@ -138,6 +138,9 @@ const SelectionPage = ({
           </div>
         )}
       </div>
+      <br />
+      <br />
+      <br />
       <Footer />
     </div>
   );

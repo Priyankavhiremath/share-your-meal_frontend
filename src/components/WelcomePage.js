@@ -66,6 +66,8 @@ const WelcomePage = () => {
           </div>
         </div>
       </div>
+      <br />
+      <br />
       <Footer />
     </div>
   );
