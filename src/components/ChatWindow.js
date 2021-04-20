@@ -10,9 +10,9 @@ const ChatWindow = ({
     connectedUsers,
 }) => {
     return (
-        <div className="iphone shadow">
+        <div className="iphone shadow-lg">
         <div className="around">
-            <div className="responsive-html5-chat">
+            <div className="">
             <form className="chat" onSubmit={onNewMessage}>
                 <div className="connected">
                 Users online:{" "}
@@ -31,15 +31,20 @@ const ChatWindow = ({
                     );
                 })}
                 </div>
-                
-                <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Your message"
-                />
-                <input type="submit" value="Send" />
-                
+                <div className="input-main">
+                    <input
+                        type="text"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Your message"
+                        className="input-message"
+                    />
+                    <input
+                        type="submit"
+                        value="Send"
+                        className="input-send"
+                        />
+                </div>
             </form>
             </div>
         </div>

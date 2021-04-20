@@ -51,7 +51,6 @@ function App() {
   const partnerVideo = useRef();
   const myPeer = useRef();
 
-  //---------------------------Chat logic----------------------------------------
   const addMessage = (
     text,
     from,
@@ -156,8 +155,15 @@ function App() {
     acceptInvite(socket, peer, setAcceptedCall, dialSignal);
     console.log("accepting call");
   };
-//remove cancelCall
-  
+
+  //remove cancelCall
+  // const cancelCall = () =>{
+  //   myPeer.current && myPeer.current.destroy();
+  //   socket.current.emit("cancelCall", buddy );
+  //   dialSignal.unload();
+  //   setInvitingBuddy(false);
+  //   console.log("trying to cancel")
+  // };
 
   const acceptCall = () => {
     setAcceptedCall(true);
@@ -193,7 +199,6 @@ function App() {
       // console.log(`I am the one calling. sending the end call signal to my buddy: ${incomingCall && incomingCall.caller.id}`)
       socket.current.emit('endCall', buddy);
     }
-
     history.push("/");
     window.location.reload();
   };
@@ -223,7 +228,7 @@ function App() {
   };
 
   return (
-    <div className="App background full-height">
+    <div className="App">
       <div className="main">
         <Routing
           me={me}

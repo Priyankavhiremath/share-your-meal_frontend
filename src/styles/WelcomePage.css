@@ -15,7 +15,8 @@
 }
 
 .main-div {
-  min-height: 92vh;
+  min-height: 100vh;
+  margin-bottom: 0;
 }
 
 .link-style {

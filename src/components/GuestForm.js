@@ -63,7 +63,7 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me,formDemandsInfo }) => {
 
   return (
     <div>
-      <div className="main-div mt-4">
+      <div className="main-div pt-4">
         <h1>Enter your info</h1>
         <form className="text-center" onSubmit={onConnect}>
           <div className="row">

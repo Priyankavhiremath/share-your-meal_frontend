@@ -7,7 +7,6 @@ const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingB
   const [userFilter, setUserFilter] = useState({});
 
   const filterUser = (user) => {
-    let match = true;
     console.log(user);
     console.log(userFilter);
     if (
@@ -60,8 +59,8 @@ const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingB
 
     return true; // When all the selected filter category matches return 'true'
   };
+  
 //get 6 unique random users from connectedUsers in new array randomUsers
-
 /*const connectedCopy = connectedUsers;
 const shuffle = (array)=> {
   let oldElement;
@@ -75,6 +74,7 @@ const shuffle = (array)=> {
 } 
 const connectedShuffle = shuffle(connectedCopy);
  console.log(connectedShuffle); */
+
 
   return (
     <Container>

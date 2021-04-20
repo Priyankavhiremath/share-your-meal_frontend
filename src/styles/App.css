@@ -26,7 +26,6 @@ body {
 .App {
   min-height: 100vh;
   margin: 0;
-  padding-top: 1rem;
   text-align: center;
   background-color: #b2d6c7;
   position: relative;
@@ -68,7 +67,6 @@ body {
   width: 100%;
   height: 4rem;
   background-color: #7cd795;
-  /* background-color: #008080; */
   margin-top: 0;
   font-size: 20px;
   font-family: "Roboto";
@@ -225,7 +223,6 @@ p {
 }
 
 .selectAndChat {
-  padding-top: 2rem;
   padding-right: 4rem;
   justify-content: space-around !important;
 }
@@ -233,7 +230,11 @@ p {
 .videoSection {
   padding-top: 2rem;
   padding-bottom: 2rem;
-  background-color: #c6e9d0;
+  background-color: #d0f5da;
+}
+
+.input-main{
+  height: 55%;
 }
 
 .formEmptyAlert {
@@ -241,3 +242,4 @@ p {
   padding-top: 0;
   padding-bottom: 1rem;
 }
+
