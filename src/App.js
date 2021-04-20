@@ -44,13 +44,13 @@ function App() {
   const [buddy, setBuddy] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-
+  const [formDemandsInfo, setFormDemandsInfo] = useState(false);
+  
   const socket = useRef();
   const userVideo = useRef();
   const partnerVideo = useRef();
   const myPeer = useRef();
 
-  //---------------------------Chat logic----------------------------------------
   const addMessage = (
     text,
     from,
@@ -129,10 +129,16 @@ function App() {
 
   const handleConnect = (event) => {
     event.preventDefault();
+  
+    if (!me.comStyle || !me.country || !me.language || !me.name)
+    {setFormDemandsInfo(true)}
+    else
+    {setFormDemandsInfo(false);
     socket.current.emit("newGuestUser", me);
     setConnected(true);
-    history.push("/select");
-  };
+    history.push("/select");}
+    
+  }
 
   const handleInviteBuddy = (id) => {
     // Send Offer To Start Connection
@@ -153,13 +159,14 @@ function App() {
     console.log("accepting call");
   };
 
-  const cancelCall = () => {
-    myPeer.current && myPeer.current.destroy();
-    socket.current.emit("cancelCall", buddy);
-    dialSignal.unload();
-    setInvitingBuddy(false);
-    console.log("trying to cancel");
-  };
+  //remove cancelCall
+  // const cancelCall = () =>{
+  //   myPeer.current && myPeer.current.destroy();
+  //   socket.current.emit("cancelCall", buddy );
+  //   dialSignal.unload();
+  //   setInvitingBuddy(false);
+  //   console.log("trying to cancel")
+  // };
 
   const acceptCall = () => {
     setAcceptedCall(true);
@@ -194,7 +201,6 @@ function App() {
       // console.log(`I am the one calling. sending the end call signal to my buddy: ${incomingCall && incomingCall.caller.id}`)
       socket.current.emit("endCall", buddy);
     }
-
     history.push("/");
     window.location.reload();
   };
@@ -224,15 +230,15 @@ function App() {
   };
 
   return (
-    <div className="App background full-height">
+    <div className="App">
       <div className="main">
         <Routing
           me={me}
           connected={connected}
           onConnect={handleConnect}
           onChangeForm={handleChangeForm}
+          formDemandsInfo={formDemandsInfo}
           handleInviteBuddy={handleInviteBuddy}
-          cancelCall={cancelCall}
           acceptCall={acceptCall}
           rejectCall={rejectCall}
           endCall={endCall}

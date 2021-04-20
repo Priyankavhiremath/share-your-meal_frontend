@@ -8,7 +8,7 @@ const WelcomePage = () => {
   return (
     <div className="welcome">
       <div className="main-div">
-        <div className="text-light text-center my-2 py-5">
+        <div className="text-light text-center md-2 py-5">
           <h2>Welcome to</h2>
           <br/> 
           <Fade delay={500}><h2><span className="logo display-3">Share Your Meal</span></h2></Fade>

@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import { Button } from "react-bootstrap";
 import "../styles/GuestForm.css";
 
-const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
+const GuestForm = ({ onConnect, onChangeForm, setMe, me,formDemandsInfo }) => {
   const languagelist = [
     {
       value: 1,
@@ -63,7 +63,7 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
 
   return (
     <div>
-      <div className="main-div mt-4">
+      <div className="main-div pt-4">
         <h1>Enter your info</h1>
         <form className="text-center" onSubmit={onConnect}>
           <div className="row">
@@ -135,6 +135,9 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                       />
                       <label>Both </label>
                     </div>
+                    {formDemandsInfo && (
+                      <h3 className="formEmptyAlert pt-4">Please complete the form before submitting!</h3>
+                    )}
                     <Button className="roundButton mr-md-4" href="/">
                       {" "}
                       Go back{" "}
