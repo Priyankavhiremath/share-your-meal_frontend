@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import UserCard from "./UserCard";
 import UserFilter from "./UserFilter";
 
-const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingBuddy, cancelCall }) => {
+const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingBuddy }) => {
   const [userFilter, setUserFilter] = useState({});
 
   const filterUser = (user) => {
@@ -96,7 +96,6 @@ const connectedShuffle = shuffle(connectedCopy);
                 user={user} 
                 handleInviteBuddy={handleInviteBuddy} 
                 invitingBuddy={invitingBuddy} 
-                cancelCall={cancelCall} 
                 buddy={buddy}/>
                 <br />
               </Fragment>

@@ -127,8 +127,7 @@ function App() {
 
   const handleConnect = (event) => {
     event.preventDefault();
-    //prevent empty form
-   // console.log(me);
+  
     if (!me.comStyle || !me.country || !me.language || !me.name)
     {setFormDemandsInfo(true)}
     else
@@ -157,14 +156,8 @@ function App() {
     acceptInvite(socket, peer, setAcceptedCall, dialSignal);
     console.log("accepting call");
   };
-
-  const cancelCall = () =>{
-    myPeer.current && myPeer.current.destroy();
-    socket.current.emit("cancelCall", buddy );
-    dialSignal.unload();
-    setInvitingBuddy(false);
-    console.log("trying to cancel")
-  };
+//remove cancelCall
+  
 
   const acceptCall = () => {
     setAcceptedCall(true);
@@ -239,7 +232,6 @@ function App() {
           onChangeForm={handleChangeForm}
           formDemandsInfo={formDemandsInfo}
           handleInviteBuddy={handleInviteBuddy}
-          cancelCall={cancelCall}
           acceptCall={acceptCall}
           rejectCall={rejectCall}
           endCall={endCall}
