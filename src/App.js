@@ -150,13 +150,13 @@ function App() {
     console.log("accepting call");
   };
 
-  const cancelCall = () =>{
-    myPeer.current && myPeer.current.destroy();
-    socket.current.emit("cancelCall", buddy );
-    dialSignal.unload();
-    setInvitingBuddy(false);
-    console.log("trying to cancel")
-  };
+  // const cancelCall = () =>{
+  //   myPeer.current && myPeer.current.destroy();
+  //   socket.current.emit("cancelCall", buddy );
+  //   dialSignal.unload();
+  //   setInvitingBuddy(false);
+  //   console.log("trying to cancel")
+  // };
 
   const acceptCall = () => {
     setAcceptedCall(true);
@@ -222,7 +222,7 @@ function App() {
   };
 
   return (
-    <div className="App background full-height">
+    <div className="App">
       <div className="main">
         <Routing
           me={me}
@@ -230,7 +230,6 @@ function App() {
           onConnect={handleConnect}
           onChangeForm={handleChangeForm}
           handleInviteBuddy={handleInviteBuddy}
-          cancelCall={cancelCall}
           acceptCall={acceptCall}
           rejectCall={rejectCall}
           endCall={endCall}
