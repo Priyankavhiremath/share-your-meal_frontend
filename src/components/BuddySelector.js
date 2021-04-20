@@ -59,6 +59,7 @@ const BuddySelector = ({ connectedUsers, me, buddy, handleInviteBuddy, invitingB
 
     return true; // When all the selected filter category matches return 'true'
   };
+
   
 //get 6 unique random users from connectedUsers in new array randomUsers
 /*const connectedCopy = connectedUsers;
@@ -75,7 +76,6 @@ const shuffle = (array)=> {
 const connectedShuffle = shuffle(connectedCopy);
  console.log(connectedShuffle); */
 
-
   return (
     <Container>
       <Row>
@@ -85,13 +85,15 @@ const connectedShuffle = shuffle(connectedCopy);
       </Row>
       <UserFilter filter={userFilter} setFilter={setUserFilter} />
       <Row className="justify-content-center">
+
         {connectedUsers/*connectedShuffle*/
           .filter((user) => user.id !== me.id)
           .filter((user) => filterUser(user))
-          .slice(0,6)
+          .slice(0, 6)
           .map((user) => {
             return (
               <Fragment key={user.id}>
+
                 <UserCard 
                 user={user} 
                 handleInviteBuddy={handleInviteBuddy} 

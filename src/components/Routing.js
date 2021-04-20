@@ -8,6 +8,7 @@ import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import Profile from "./Profile";
 import ProtectedRoute from "./ProtectedRoute";
+import AboutUs from "./AboutUs";
 
 const Routing = (props) => {
   return (
@@ -24,6 +25,7 @@ const Routing = (props) => {
       {/* <ProtectedRoute exact path="/profile" render={()=> <Profile {...props} />} /> */}
       <ProtectedRoute exact path="/profile" {...props} component={Profile} />
       <Route exact path="/" component={WelcomePage} />
+      <Route exact path="/AboutUs" component={AboutUs} />
     </Switch>
   );
 };
