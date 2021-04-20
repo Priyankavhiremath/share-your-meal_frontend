@@ -112,15 +112,15 @@ const SelectionPage = ({
                     )}
                     </div>
                   
-                      {!acceptedCall && (
-                            <BuddySelector
-                              connectedUsers={connectedUsers}
-                              me={me}
-                              handleInviteBuddy={handleInviteBuddy}
-                              invitingBuddy={invitingBuddy}
-                              buddy={buddy}
-                            />
-                        )}
+                    {!acceptedCall && (
+                        <BuddySelector
+                            connectedUsers={connectedUsers}
+                            me={me}
+                            handleInviteBuddy={handleInviteBuddy}
+                            invitingBuddy={invitingBuddy}
+                            buddy={buddy}
+                        />
+                     )}
               </Col>
               <Col className="chatContainer" lg={4}>
                 {me && (

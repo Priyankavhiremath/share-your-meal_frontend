@@ -44,13 +44,13 @@ function App() {
   const [buddy, setBuddy] = useState()
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const [formDemandsInfo, setFormDemandsInfo] = useState(false);
   
   const socket = useRef();
   const userVideo = useRef();
   const partnerVideo = useRef();
   const myPeer = useRef();
 
-  //---------------------------Chat logic----------------------------------------
   const addMessage = (
     text,
     from,
@@ -126,10 +126,16 @@ function App() {
 
   const handleConnect = (event) => {
     event.preventDefault();
+  
+    if (!me.comStyle || !me.country || !me.language || !me.name)
+    {setFormDemandsInfo(true)}
+    else
+    {setFormDemandsInfo(false);
     socket.current.emit("newGuestUser", me);
     setConnected(true);
-    history.push("/select");
-  };
+    history.push("/select");}
+    
+  }
 
   const handleInviteBuddy = (id) => {
     // Send Offer To Start Connection
@@ -150,6 +156,7 @@ function App() {
     console.log("accepting call");
   };
 
+  //remove cancelCall
   // const cancelCall = () =>{
   //   myPeer.current && myPeer.current.destroy();
   //   socket.current.emit("cancelCall", buddy );
@@ -192,7 +199,6 @@ function App() {
       // console.log(`I am the one calling. sending the end call signal to my buddy: ${incomingCall && incomingCall.caller.id}`)
       socket.current.emit('endCall', buddy);
     }
-
     history.push("/");
     window.location.reload();
   };
@@ -229,6 +235,7 @@ function App() {
           connected={connected}
           onConnect={handleConnect}
           onChangeForm={handleChangeForm}
+          formDemandsInfo={formDemandsInfo}
           handleInviteBuddy={handleInviteBuddy}
           acceptCall={acceptCall}
           rejectCall={rejectCall}

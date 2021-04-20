@@ -9,7 +9,7 @@ const {
 if (NODE_ENV === "production") {
   serverUrl = REACT_APP_BACKEND_API_HEROKU;
 } else {
-  serverUrl = REACT_APP_BACKEND_API_LOCAL;
+  serverUrl = REACT_APP_BACKEND_API_HEROKU;
 }
 
 export default serverUrl;
