@@ -108,7 +108,6 @@ const GuestForm = ({ onConnect, onChangeForm, setMe, me }) => {
                     </div>
                     <h5 className="pt-4">Communication Style</h5>
                     <div className="form-group pb-3">
-                      {/* <br /> */}
                       <input
                         type="radio"
                         className=" mr-1"

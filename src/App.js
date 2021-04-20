@@ -13,7 +13,7 @@ import {
   youJoined,
   userJoined,
   newMessage,
-  userDisconnected
+  userDisconnected,
 } from "./socket/socket";
 import {
   createPeer,
@@ -36,15 +36,15 @@ function App() {
   const [callOngoing, setCallOngoing] = useState(false);
   const [incomingCall, setIncomingCall] = useState();
   const [acceptedCall, setAcceptedCall] = useState(false);
-  const [userRejectsCall,setUserRejectsCall] = useState(false);
+  const [userRejectsCall, setUserRejectsCall] = useState(false);
   const [iWasRejected, setIWasRejected] = useState(false);
   const [invitingBuddy, setInvitingBuddy] = useState(false);
   const [stream, setStream] = useState();
   const [credentials, setCredentials] = useState();
-  const [buddy, setBuddy] = useState()
+  const [buddy, setBuddy] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-  
+
   const socket = useRef();
   const userVideo = useRef();
   const partnerVideo = useRef();
@@ -55,7 +55,10 @@ function App() {
     text,
     from,
     color,
-    date = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    date = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
   ) => {
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -77,10 +80,10 @@ function App() {
   };
 
   const dialSignal = new Howl({
-    src: ['/sounds/nightCrickets.mp3'],
+    src: ["/sounds/nightCrickets.mp3"],
     volume: 0.6,
     loop: true,
-  })
+  });
 
   useEffect(() => {
     //------------------------------------------------
@@ -97,10 +100,10 @@ function App() {
     setAuthHeaders() && history.push("/profile");
 
     //-----------------CHAT-----------------------
-    youJoined(socket, addMessage)
-    userJoined(socket, addMessage)
-    newMessage(socket, addMessage)
-    userDisconnected(socket, addMessage)
+    youJoined(socket, addMessage);
+    userJoined(socket, addMessage);
+    newMessage(socket, addMessage);
+    userDisconnected(socket, addMessage);
   }, [history]);
 
   const handleChangeForm = (e) => {
@@ -150,12 +153,12 @@ function App() {
     console.log("accepting call");
   };
 
-  const cancelCall = () =>{
+  const cancelCall = () => {
     myPeer.current && myPeer.current.destroy();
-    socket.current.emit("cancelCall", buddy );
+    socket.current.emit("cancelCall", buddy);
     dialSignal.unload();
     setInvitingBuddy(false);
-    console.log("trying to cancel")
+    console.log("trying to cancel");
   };
 
   const acceptCall = () => {
@@ -169,11 +172,10 @@ function App() {
 
   const rejectCall = () => {
     if (incomingCall) {
-      console.log('I will reject the call');
-    setUserRejectsCall(true);
-    socket.current.emit("rejectCall", 
-    incomingCall.caller.id );
-    } 
+      console.log("I will reject the call");
+      setUserRejectsCall(true);
+      socket.current.emit("rejectCall", incomingCall.caller.id);
+    }
   };
 
   const handleCallOngoing = () => {
@@ -183,14 +185,14 @@ function App() {
   };
 
   const endCall = () => {
-    myPeer.current && myPeer.current.destroy()
+    myPeer.current && myPeer.current.destroy();
     if (incomingCall) {
       // console.log(`I am the at the receiving end. sending the end call signal to the caller: ${incomingCall && incomingCall.caller.id}`)
       // console.log(socket.current)
-      socket.current.emit('endCall', incomingCall.caller.id);
+      socket.current.emit("endCall", incomingCall.caller.id);
     } else {
       // console.log(`I am the one calling. sending the end call signal to my buddy: ${incomingCall && incomingCall.caller.id}`)
-      socket.current.emit('endCall', buddy);
+      socket.current.emit("endCall", buddy);
     }
 
     history.push("/");
@@ -253,7 +255,7 @@ function App() {
           messages={messages}
           handleNewMessage={handleNewMessage}
           setMessage={setMessage}
-          />
+        />
       </div>
     </div>
   );
