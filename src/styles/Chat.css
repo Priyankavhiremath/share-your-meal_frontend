@@ -187,9 +187,8 @@ form.chat input[type="text"] {
 form.chat input[type="submit"] {
   width: 23%;
 
-  background: transparent;
   border-radius: 5px;
-  background-image: linear-gradient(#783fbd, #583d7a);
+  background: transparent linear-gradient(#783fbd, #583d7a);
   color: blanchedalmond;
   font-weight: 700;
   text-align: center;
