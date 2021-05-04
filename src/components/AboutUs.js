@@ -2,22 +2,25 @@ import React from "react";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Card, CardGroup } from "react-bootstrap";
 import Footer from "./Footer";
-import { Button } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
     <React.Fragment>
-      <h1>Meet our team</h1>
+      <Container fluid className="main">
+      <Row className="justify-content-center">
+      <h1 className="mt-5 mb-3">Meet our team</h1>
+      </Row>
       <br />
-      <CardGroup className="ml-5 mr-5 mb-5">
-        <Card className="ml-5 mr-5">
+      <Row className=" justify-content-center">
+      {/*<CardGroup className="ml-5 mr-5 mb-5" >*/}
+        <Card className="ml-5 mr-5 mb-5 shadow"  style={{minWidth: '250px', maxWidth:'350px'}}>
           <Card.Img
             variant="top"
             src="./img/selma.jpg"
             height="250px"
-            width="200px"
-            object-fit="contain"
+            style={{objectFit: 'cover'}}
           />
           <Card.Body>
             <Card.Title>Selma</Card.Title>
@@ -30,13 +33,12 @@ const AboutUs = () => {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card className="ml-5 mr-5">
+        <Card className="ml-5 mr-5 mb-5 shadow" xl={4} style={{minWidth: '250px', maxWidth:'350px'}}>
           <Card.Img
             variant="top"
             src="./img/yuki.jpg"
             height="250px"
-            width="200px"
-            object-fit="contain"
+            style={{objectFit: 'cover'}}
           />
           <Card.Body>
             <Card.Title>Yuki</Card.Title>
@@ -49,14 +51,12 @@ const AboutUs = () => {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card className="ml-5 mr-5">
+        <Card className="ml-5 mr-5 mb-5 shadow" xl={4} style={{minWidth: '250px', maxWidth:'350px'}}>
           <Card.Img
             variant="top"
             src="./img/priyanka.jpg"
             height="250px"
-            maxWidth="200px"
-            object-fit="cover"
-            overflow="hidden"
+            style={{objectFit: 'cover'}}
           />
           <Card.Body>
             <Card.Title>Priyanka</Card.Title>
@@ -68,20 +68,22 @@ const AboutUs = () => {
             </Card.Text>
           </Card.Body>
         </Card>
-      </CardGroup>
+      {/*</CardGroup>*/}
+      </Row>
       <a href="https://www.zapsplat.com">
         Sound effects obtained from zapsplat.com
       </a>
       <br /> <br />
-      <Button className="roundButton mr-md-4 shadow" href="/">
+      <Button className="roundButton mr-4 shadow" href="/">
         {" "}
         Go back{" "}
       </Button>
       <Link to="/guest">
-        <Button className="roundButton shadow">Start as guest</Button>
+        <Button className="roundButton ml-4 shadow">Start as guest</Button>
       </Link>
       <br /> <br />
-      <br /> <br />
+      
+      </Container>
       <Footer />
     </React.Fragment>
   );

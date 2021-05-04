@@ -65,7 +65,7 @@ body {
 
 .footer {
   width: 100%;
-  height: 4rem;
+  height: 8vh;
   background-color: #7cd795;
   margin-top: 0;
   font-size: 20px;
@@ -97,7 +97,7 @@ p {
   float: left;
 }
 
-.purple-button {
+/*.purple-button {
   background-image: linear-gradient(#783fbd, #583d7a);
   color: white;
 }
@@ -111,7 +111,7 @@ p {
 
 .purple-button.fontFamily {
   font-family: "Mitr", sans-serif;
-}
+}*/
 
 .welcome {
   background-color: #b2d6c7;
@@ -233,7 +233,7 @@ p {
   background-color: #d0f5da;
 }
 
-.input-main{
+.input-main {
   height: 55%;
 }
 
@@ -242,4 +242,3 @@ p {
   padding-top: 0;
   padding-bottom: 1rem;
 }
-
