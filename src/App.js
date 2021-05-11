@@ -114,7 +114,7 @@ function App() {
 
   useEffect(() => {
     //check if connected before switching on webcam
-    if(connected) {
+    if(connected || callOngoing ) {
     navigator.mediaDevices
       .getUserMedia({ audio: true, video: true })
       .then((stream) => {
