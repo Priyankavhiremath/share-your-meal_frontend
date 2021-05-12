@@ -113,6 +113,8 @@ function App() {
   };
 
   useEffect(() => {
+    //check if connected before switching on webcam
+    if(connected || callOngoing ) {
     navigator.mediaDevices
       .getUserMedia({ audio: true, video: true })
       .then((stream) => {
@@ -125,7 +127,7 @@ function App() {
         // What do you do if the user refuses the connection???
         console.log(error.message);
       });
-  }, [connected]);
+  }}, [connected]);
 
   const handleConnect = (event) => {
     event.preventDefault();
